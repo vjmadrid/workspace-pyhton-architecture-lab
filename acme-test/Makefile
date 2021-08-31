@@ -19,28 +19,40 @@ deps-generate-requirements: ## Generate 'requirements-version.txt' file (With ve
 deps-install: ## Install dependencies 'requirements.txt' file (With versions)
 	pip install -Ur requirements.txt
 
+deps-tree: ## Show dependency tree of packages
+	pipdeptree
+
 deps-reset: ## Reset all requirements
 	pip freeze | xargs pip uninstall -y
 
 
 
-# *** TEST ***
+# *** QA ****
 
-test: ## Run all the tests with all the supported python interpreters 
-	python3 -m pytest -ra
-	make clean
-
-coverage: ## Run tests with coverage
-	python3 -m coverage erase
-	python3 -m coverage run --include=src/* -m pytest -ra
-	python3 -m coverage report -m
-
-lint: ## Lint and static-check
+lint: ## Lint and static-check code
 	flake8 --version
 	flake8 .
 	pylint --version
-	pylint src
+	pylint acme
 	pylint tests
+
+format: ## Format code
+	black . --check --color --diff
+
+
+
+# *** TEST ***
+
+test: clean ## Run all the tests with all the supported python interpreters 
+	pytest -ra
+
+test-lint: ## Lint and static-check code
+	pytest --flake8
+
+coverage: ## Run tests with coverage
+	coverage erase
+	coverage run --include=src/* -m pytest -ra
+	coverage report -m
 
 
 
@@ -65,6 +77,7 @@ show-content:
 	cp ./dist/acme-common-0.0.1.tar.gz ../
 
 
+
 # *** CLEAN ***
 
 clean-build: ## Remove elements for build
@@ -79,6 +92,8 @@ clean-distribute: clean-build ## Remove *.egg-info files and *.egg, build and di
 
 clean : clean-distribute ## Remove *.pyc files and __pycache__ directory
 
+run: ## Run
+	@echo "N/A"
 
 help: ## Show help message
 	@IFS=$$'\n' ; \

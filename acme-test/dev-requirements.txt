@@ -1,5 +1,9 @@
+pipdeptree
+
 pytest
 pytest-xdist
 pytest-cov
 pytest-flake8
+
 pylint
+black
