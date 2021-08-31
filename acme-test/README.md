@@ -1,0 +1,51 @@
+# acme-test
+
+This project represents a architecture library (dependency) related with testing to develop the different parts in a homogeneus way
+
+This library stands out for:
+
+* Provides utility classes to facilitaty testing with certain elements : exceptions, constant classes, etc.
+* Define unit testing framework and their versioning
+* Define mocking testing framework and their versioning
+* Define matcher testing framework and their versioning
+* Define architecture testing framework and their versioning
+
+
+
+
+## Technological Stack
+
+* [Python](https://www.python.org/)
+
+Dependencies with architecture projects
+
+* N/A
+
+Third Party 
+
+* **pytest** [6.2.4] : Framework for use unit testing (with over 850+ external plugins ) -> [Pypi](https://pypi.org/project/pytest/) [Documentation](https://docs.pytest.org/en/latest/)
+     * Include 
+        * iniconfig
+        * attrs
+        * toml
+        * pyparsing
+        * packaging
+        * py
+* **pytest-xdist** [2.3.0] : pytest plugin for execution modes : parallelization, multi-platform, etc. -> [Pypi](https://pypi.org/project/pytest-cov/) [Documentation](https://github.com/pytest-dev/pytest-cov)
+    * Include
+        pytest-forked
+* **pytest-cov** [2.12.1] : pytest plugin for create reports -> [Pypi](https://pypi.org/project/pytest-cov/) [Documentation](https://github.com/pytest-dev/pytest-cov)
+    * Include
+        * coverage
+* **flake8** [3.9.2] : Framework that is a wrapper of differentes tools -> [Pypi](https://pypi.org/project/flake8/) [Documentation](https://flake8.pycqa.org/en/latest/index.html#quickstart)
+    * Include 
+        * **pycodestyle** [2.7.0] : Framework for checking Python style guide -> [Pypi](https://pypi.org/project/pycodestyle/) [Documentation](https://www.python.org/dev/peps/pep-0008/)
+        * **pyflakes** [2.3.1] : Framework for checking Python error about source files -> [Pypi](https://pypi.org/project/pyflakes/) [Documentation](https://github.com/PyCQA/pyflakes)
+        * **mccabe** [0.6.1] : Framework for checking Python with McCabe complexity -> [Pypi](https://pypi.org/project/mccabe/) [Documentation](https://github.com/pycqa/mccabe)
+    * Supports storing its configuration in the following places :setup.cfg, tox.ini, or .flake8 (Flake8 looks for ~\.flake8 on Windows and ~/.config/flake8 on Linux and other Unix systems)
+* **pylint** [2.10.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation2](http://pylint.pycqa.org/en/latest/)
+
+
+* **pre-commit** [2.14.0] : Framework for managing and maintaining multi-language pre-commit hooks -> [Pypi](https://pypi.org/project/pre-commit/) [Documentation](https://pre-commit.com/)
+
+

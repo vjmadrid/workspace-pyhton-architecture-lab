@@ -1,0 +1,83 @@
+
+
+help:
+	@echo "Please use 'make <target>' where <target> is one of"
+	@echo ""
+	@echo "GENERAL"                    		
+	@echo "  upgrade                    		upgrade modules : pip and setuptools"
+	@echo ""
+	@echo "INSTALL"
+	@echo "  install                    		install dependencies and prepare environment"
+	@echo "  install-dev                		install dependencies and everything needed to run tests"
+	@echo "  build-requirements         		install all requirements and freeze them in requirements.txt"
+	@echo ""
+	@echo "TESTING"
+	@echo "  tests                      		run all the tests with all the supported python interpreters (same as travis)"
+	@echo ""
+	@echo "DISTRIBUTE"
+	@echo "  distribute-install-develop        	xxx"
+	@echo "  distribute-uninstall-develop   	xxx"
+	@echo "  distribute-install   				xxx"
+	@echo "  distribute-local   				xxx"
+	@echo ""
+	@echo "CLEAN"
+	@echo "  clean                      		remove *.pyc files and __pycache__ directory"
+	@echo "  clean-distribute           		remove *.egg-info files and *.egg, build and dist directories"
+	@echo ""
+	@echo "Check the Makefile to know exactly what each target is doing"
+
+
+upgrade:
+	pip install -U setuptools
+	pip install -U pip
+
+install:
+	pip install -Ue .
+
+deps-install-dev:
+	pip install -Ur dev-requirements.txt
+
+build-requirements: install
+	pip freeze | grep -v -- '^-e' > requirements.txt
+
+reset-install:
+	pip freeze | xargs pip uninstall -y
+
+
+
+test:
+	pytest
+	make clean
+
+
+distribute-install-develop: distribute-uninstall-develop
+	python3 setup.py develop
+
+distribute-uninstall-develop:
+	python3 setup.py develop --uninstall
+
+distribute-install:
+	python3 setup.py install
+
+distribute-local:
+	python3 setup.py sdist
+
+show-content:
+	cp ./dist/acme-common-0.0.1.tar.gz ../
+
+
+
+clean-build:
+	find . -name '__pycache__' -type d | xargs rm -fr
+	find . -name '.pytest_cache' -type d | xargs rm -fr
+	find . -name '*.pytest_cache' -type d | xargs rm -fr
+	find . -name '*.pyc' -type d | xargs rm -fr
+
+clean-distribute: clean-build
+	rm -vrf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info ./*.egg
+	find . -name '*.egg-info/' -type d | xargs rm -fr
+
+clean : clean-distribute
+
+
+.PHONY: init test
