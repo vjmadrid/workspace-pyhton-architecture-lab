@@ -1,36 +1,54 @@
 # acme-selenium
 
-python3 setup.py develop
+This project represents a architecture library (dependency) related with selenium to develop the different parts in a homogeneus way
 
-python3 setup.py develop --uninstall
+This library stands out for:
 
-
-python3 setup.py install
-
-## Libraries
-
-* requests : Facilita realizar peticiones en HTTP
-* urllib3 : Facilita trabajar con peticiones HTTP
-* os : way of using operating system dependent functionality
-* bs4 : Beautiful Soup 4 Sirve para parsear HTML https://www.crummy.com/software/BeautifulSoup/ 
-* html5lib
-* lxml : 
-* grequests : Facilita el paralelismo en las peticiones HTTP
-* Scrapy
-scrapy startproject hacker_news_scraper
-* webdriver-manager
+* Define selenium framework and their versioning
 
 
-```bash
-# Uptate pip
-python -m pip install --upgrade pip
 
-python -m pip install -U requests
-python -m pip install -U urllib3
-python -m pip install -U bs4
-python -m pip install -U html5lib
-python -m pip install -U lxml
-python -m pip install -U grequests
-python -m pip install -U webdriver-manager
-python -m pip install -U selenium
-```
+
+## Technological Stack
+
+* [Python](https://www.python.org/)
+
+Dependencies with architecture projects
+
+* **acme-test** [0.0.1] : Architecture library for testing used in the test environment -> Custom Library [Documentation](XXXX)
+* **acme-common** [0.0.1] : Architecture library for common used -> Custom Library [Documentation](xxx)
+
+Third Party
+
+* **grequests** [0.6.0] : Framework combinated : rquests + gevent -> [Pypi](https://pypi.org/project/grequests/) [Documentation](https://github.com/spyoungtech/grequests)
+
+  * Includes :
+    * gevent
+    * requests
+
+* **html5lib** [1.1] : HTML parser based on the WHATWG HTML specification -> [Pypi](https://pypi.org/project/html5lib/) [Documentation](https://github.com/html5lib/html5lib-python)
+
+  * Includes :
+    * six
+    * webencodings
+
+* **lxml** [4.6.3] : XML / HTML processing library combining libxml2/libxslt with the ElementTree API -> [Pypi](https://pypi.org/project/lxml/) [Documentation](https://lxml.de/)
+
+* **bs4** [0.0.1] : Dummy package for Beautiful Soup -> [Pypi](https://pypi.org/project/bs4/) [Documentation](https://pypi.org/project/beautifulsoup4/)
+
+  * Includes :
+    * beautifulsoup4
+
+* **selenium** [3.141.0] : Python bindings for Selenium -> [Pypi](https://pypi.org/project/selenium/) [Documentation](https://github.com/SeleniumHQ/selenium/)
+
+  * Includes :
+    * urllib3
+
+
+* **webdriver-manager** [3.4.2] : Framework provides the way to automatically manage drivers for different browsers -> [Pypi](https://pypi.org/project/webdriver-manager/) [Documentation](https://github.com/SergeyPirogov/webdriver_manager)
+
+  * Includes :
+    * requests
+    * crayons
+    * configparsers
+

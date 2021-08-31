@@ -33,11 +33,14 @@ lint: ## Lint and static-check code
 	flake8 --version
 	flake8 .
 	pylint --version
-	pylint acme
+	pylint acmetest
 	pylint tests
 
-format: ## Format code
+format-check: ## Format check code
 	black . --check --color --diff
+
+format: ## Format code
+	black .
 
 
 
@@ -47,7 +50,7 @@ test: clean ## Run all the tests with all the supported python interpreters
 	pytest -ra
 
 test-lint: ## Lint and static-check code
-	pytest --flake8
+	pytest --cache-clear --flake8
 
 coverage: ## Run tests with coverage
 	coverage erase
@@ -73,8 +76,6 @@ distribute-install: ## Distribute package install by setup.py
 distribute-local: ## Distribute package mode local (folder : sdist)
 	python3 setup.py sdist
 
-show-content:
-	cp ./dist/acme-common-0.0.1.tar.gz ../
 
 
 

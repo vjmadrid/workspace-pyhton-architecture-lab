@@ -33,7 +33,7 @@ lint: ## Lint and static-check code
 	flake8 --version
 	flake8 .
 	pylint --version
-	pylint acme
+	pylint acmecommon
 	pylint tests
 
 format-check: ## Format check code
