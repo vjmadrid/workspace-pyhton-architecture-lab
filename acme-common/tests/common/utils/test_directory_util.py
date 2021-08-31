@@ -3,11 +3,10 @@
 import unittest
 import os
 from pathlib import Path
-from acmecommon.common.utils.directory_util import DirectoryUtil
+from acme.common.utils.directory_util import DirectoryUtil
 
 
 class TestDirectoryUtil(unittest.TestCase):
-
     def setUp(self):
         self.test_current_path = Path(os.path.dirname(os.path.realpath(__file__)))
 
@@ -28,5 +27,5 @@ class TestDirectoryUtil(unittest.TestCase):
         self.assertEqual(15, len(result_list))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

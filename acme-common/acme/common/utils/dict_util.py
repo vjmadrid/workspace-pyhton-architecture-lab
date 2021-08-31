@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class DicUtil():
-
+class DicUtil:
     def find_key_by_value(self, dic, value):
         """
         Usage:

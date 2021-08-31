@@ -4,16 +4,15 @@
 import unittest
 import datetime
 
-from acmecommon.common.utils.date_util import DateUtil
+from acme.common.utils.date_util import DateUtil
 
 
 class TestDateUtil(unittest.TestCase):
-
     def test_is_valid_date(self):
-        self.assertTrue(DateUtil().is_valid_date('20151021'))
-        self.assertFalse(DateUtil().is_valid_date('20151041'))
-        self.assertFalse(DateUtil().is_valid_date('2015102'))
-        self.assertFalse(DateUtil().is_valid_date('20151000'))
+        self.assertTrue(DateUtil().is_valid_date("20151021"))
+        self.assertFalse(DateUtil().is_valid_date("20151041"))
+        self.assertFalse(DateUtil().is_valid_date("2015102"))
+        self.assertFalse(DateUtil().is_valid_date("20151000"))
 
     def test_get_first_date_of_next_month(self):
         base_date = datetime.datetime(2016, 12, 31)
@@ -45,8 +44,13 @@ class TestDateUtil(unittest.TestCase):
         _now = datetime.datetime.now()
         _date_utils = DateUtil()
 
-        self.assertEqual('-', _date_utils.get_timestamp_diff_formatted(_now.timestamp(), _now.timestamp()))
+        self.assertEqual(
+            "-",
+            _date_utils.get_timestamp_diff_formatted(
+                _now.timestamp(), _now.timestamp()
+            ),
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

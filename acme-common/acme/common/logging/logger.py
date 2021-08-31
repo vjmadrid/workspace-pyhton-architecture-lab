@@ -10,8 +10,10 @@ from logging.handlers import RotatingFileHandler
 loggers = {}
 
 
-LOG_FILE_FORMATTER = logging.Formatter('[%(levelname)s]:%(asctime)s:%(module)s:%(lineno)d:%(name)s:%(message)s')
-LOG_CONSOLE_FORMATTER = logging.Formatter('[%(levelname)s]: %(message)s')
+LOG_FILE_FORMATTER = logging.Formatter(
+    "[%(levelname)s]:%(asctime)s:%(module)s:%(lineno)d:%(name)s:%(message)s"
+)
+LOG_CONSOLE_FORMATTER = logging.Formatter("[%(levelname)s]: %(message)s")
 
 
 def setup_logging(log_path, log_file_name, log_mode, log_main_level):
@@ -20,20 +22,24 @@ def setup_logging(log_path, log_file_name, log_mode, log_main_level):
     logger.setLevel(log_main_level)
 
     # log_filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    now = datetime.datetime.now().strftime('%Y%m%d')
+    now = datetime.datetime.now().strftime("%Y%m%d")
 
-    file_name = '{0}/{1}-{2}.log'.format(log_path, log_file_name, now)
+    file_name = "{0}/{1}-{2}.log".format(log_path, log_file_name, now)
     file_handler = logging.FileHandler(file_name)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(LOG_FILE_FORMATTER)
 
-    debug_file_name = '{0}/debug_{1}-{2}.log'.format(log_path, log_file_name, now)
-    debug_file_handler = RotatingFileHandler(debug_file_name, maxBytes=10**6, backupCount=5)
+    debug_file_name = "{0}/debug_{1}-{2}.log".format(log_path, log_file_name, now)
+    debug_file_handler = RotatingFileHandler(
+        debug_file_name, maxBytes=10 ** 6, backupCount=5
+    )
     debug_file_handler.setLevel(logging.DEBUG)
     debug_file_handler.setFormatter(LOG_FILE_FORMATTER)
 
-    error_file_name = '{0}/error_{1}-{2}.log'.format(log_path, log_file_name, now)
-    errors_file_handler = RotatingFileHandler(error_file_name, maxBytes=10**6, backupCount=5)
+    error_file_name = "{0}/error_{1}-{2}.log".format(log_path, log_file_name, now)
+    errors_file_handler = RotatingFileHandler(
+        error_file_name, maxBytes=10 ** 6, backupCount=5
+    )
     errors_file_handler.setLevel(logging.WARNING)
     errors_file_handler.setFormatter(LOG_FILE_FORMATTER)
 
@@ -51,8 +57,8 @@ def setup_logging(log_path, log_file_name, log_mode, log_main_level):
     return logger
 
 
-def log(text, level=logging.INFO, name="WDM", formatter='[%(name)s] - %(message)s'):
-    log_level = os.getenv('SONG-SCRAPER_LOG_LEVEL')
+def log(text, level=logging.INFO, name="WDM", formatter="[%(name)s] - %(message)s"):
+    log_level = os.getenv("SONG-SCRAPER_LOG_LEVEL")
 
     if log_level:
         level = int(log_level)

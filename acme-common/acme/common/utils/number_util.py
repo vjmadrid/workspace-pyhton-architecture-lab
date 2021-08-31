@@ -7,7 +7,7 @@ import math
 class NumberUtil:
 
     _int_value = 0
-    _string_value = ''
+    _string_value = ""
     _len_string_value = 0
 
     def __init__(self, int_value=0):
@@ -17,7 +17,7 @@ class NumberUtil:
 
     def __del__(self):
         self._int_value = 0
-        self._string_value = ''
+        self._string_value = ""
         self._len_string_value = 0
 
     def set_value(self, int_value=0):
@@ -49,7 +49,7 @@ class NumberUtil:
             NumberUtils(2200030112490).insert_comma() returns '2,200,030,112,490'
         """
 
-        result = ''
+        result = ""
         negative = False
 
         if self._int_value < 0:
@@ -59,10 +59,12 @@ class NumberUtil:
         if self._string_value and self._string_value.isdigit():
             index = 0
             while index < self._len_string_value:
-                single_result = ''
+                single_result = ""
 
-                if ((self._len_string_value - index - 1) % 3 == 0) and (index < self._len_string_value - 1):
-                    single_result = self._string_value[index] + ','
+                if ((self._len_string_value - index - 1) % 3 == 0) and (
+                    index < self._len_string_value - 1
+                ):
+                    single_result = self._string_value[index] + ","
                 else:
                     single_result = self._string_value[index]
 
@@ -70,6 +72,6 @@ class NumberUtil:
                 index += 1
 
         if negative:
-            return '-' + result
+            return "-" + result
 
         return result

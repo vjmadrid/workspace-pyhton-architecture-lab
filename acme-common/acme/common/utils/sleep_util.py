@@ -4,10 +4,10 @@ import os
 import time
 
 
-SMALL_WAIT_SECONDS = float(os.getenv('SMALL_WAIT_SECONDS', str(2)))
-MEDIUM_WAIT_SECONDS = float(os.getenv('MEDIUM_WAIT_SECONDS', str(4)))
-LONG_WAIT_SECONDS = float(os.getenv('LONG_WAIT_SECONDS', str(8)))
-EXTRA_LONG_WAIT_SECONDS = float(os.getenv('EXTRA_LONG_WAIT_SECONDS', str(16)))
+SMALL_WAIT_SECONDS = float(os.getenv("SMALL_WAIT_SECONDS", str(2)))
+MEDIUM_WAIT_SECONDS = float(os.getenv("MEDIUM_WAIT_SECONDS", str(4)))
+LONG_WAIT_SECONDS = float(os.getenv("LONG_WAIT_SECONDS", str(8)))
+EXTRA_LONG_WAIT_SECONDS = float(os.getenv("EXTRA_LONG_WAIT_SECONDS", str(16)))
 
 
 def sleep(seconds):

@@ -2,12 +2,11 @@
 
 
 import datetime
-from acmecommon.common.utils.number_util import NumberUtil
 from calendar import monthrange
+from acme.common.utils.number_util import NumberUtil
 
 
 class DateUtil:
-
     def is_valid_date(self, birth_date):
         """
         Usage:
@@ -24,7 +23,7 @@ class DateUtil:
             return False
 
         try:
-            datetime.datetime.strptime(birth_date, '%Y%m%d')
+            datetime.datetime.strptime(birth_date, "%Y%m%d")
         except ValueError:
             return False
 
@@ -87,26 +86,32 @@ class DateUtil:
             _small_date = datetime.datetime.now()
 
         if _big_date <= _small_date:
-            return '-'
+            return "-"
 
         _delta = _big_date - _small_date
         _remain_seconds = _delta.total_seconds()
         _remain_days = _remain_seconds // (24 * 60 * 60)
-        _remain_seconds %= (24 * 60 * 60)
+        _remain_seconds %= 24 * 60 * 60
         _remain_hours = _remain_seconds // (60 * 60)
-        _remain_seconds %= (60 * 60)
+        _remain_seconds %= 60 * 60
         _remain_minutes = _remain_seconds // 60
 
         if _remain_days:
             if _remain_hours:
-                _result = '%d일 %d시간' % (_remain_days, _remain_hours)
+                _result = "%d일 %d시간" % (_remain_days, _remain_hours)
             else:
-                _result = '%d일 %d분' % (_remain_days, _remain_minutes if _remain_minutes else 1)
+                _result = "%d일 %d분" % (
+                    _remain_days,
+                    _remain_minutes if _remain_minutes else 1,
+                )
         elif _remain_hours:
-            _result = '%d시간 %d분' % (_remain_hours, _remain_minutes if _remain_minutes else 1)
+            _result = "%d시간 %d분" % (
+                _remain_hours,
+                _remain_minutes if _remain_minutes else 1,
+            )
         elif _remain_minutes:
-            _result = '%d분' % _remain_minutes
+            _result = "%d분" % _remain_minutes
         else:
-            _result = '1분 미만'
+            _result = "1분 미만"
 
         return _result

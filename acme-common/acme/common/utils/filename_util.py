@@ -1,33 +1,33 @@
 # -*- coding: utf-8 -*-
 
-from acmecommon.common.exceptions.common_exceptions import NotSupportedException
+from acme.common.exceptions.common_exceptions import NotSupportedException
 
 
 EXTENSION_DICT = {
-    'png': 'image/png',
-    'jpg': 'image/jpg',
-    'jpeg': 'image/jpeg',
-    'gif': 'image/gif',
-    'bmp': 'image/bmp',
-    'tif': 'image/tiff',
-    'tiff': 'image/tiff',
-    'pdf': 'application/pdf',
-    'zip': 'application/zip',
-    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    "png": "image/png",
+    "jpg": "image/jpg",
+    "jpeg": "image/jpeg",
+    "gif": "image/gif",
+    "bmp": "image/bmp",
+    "tif": "image/tiff",
+    "tiff": "image/tiff",
+    "pdf": "application/pdf",
+    "zip": "application/zip",
+    "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 }
 
 
 class FileNameUtil:
 
-    _string_value = ''
+    _string_value = ""
     _len_string_value = 0
 
-    def __init__(self, string_value=''):
+    def __init__(self, string_value=""):
         self._string_value = str(string_value)
         self._len_string_value = len(self._string_value)
 
     def __del__(self):
-        self._string_value = ''
+        self._string_value = ""
         self._len_string_value = 0
 
     def extract_file_name(self):
@@ -35,9 +35,9 @@ class FileNameUtil:
         usage:
             StringUtils('/path/to/filename.py').extract_file_name() returns 'filename.py'
         """
-        result = ''
+        result = ""
         if self._string_value:
-            arr = self._string_value.split('/')
+            arr = self._string_value.split("/")
             result += arr[len(arr) - 1]
 
         return result
@@ -47,7 +47,7 @@ class FileNameUtil:
         usage:
             StringUtils('/path/to/filename.py').extract_extension() returns 'py'
         """
-        arr = self._string_value.split('.')
+        arr = self._string_value.split(".")
         extension = arr[len(arr) - 1]
         return extension
 
@@ -68,7 +68,7 @@ class FileNameUtil:
         usage:
             StringUtils('/path/to/filename.py').extract_extension() returns '/path/to/'
         """
-        return self._string_value[:self._string_value.rfind('/') + 1]
+        return self._string_value[: self._string_value.rfind("/") + 1]
 
     def get_content_type(self):
         """
@@ -80,7 +80,8 @@ class FileNameUtil:
 
         if EXTENSION_DICT[extension] is None:
             raise NotSupportedException(
-                message='This extension[' + str(extension) + '] is not supported.',
-                errors={'code': 'NOT_SUPPORTED_EXTENSION'})
+                message="This extension[" + str(extension) + "] is not supported.",
+                errors={"code": "NOT_SUPPORTED_EXTENSION"},
+            )
 
         return EXTENSION_DICT[extension]

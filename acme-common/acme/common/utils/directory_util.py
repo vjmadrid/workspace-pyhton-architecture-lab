@@ -6,8 +6,7 @@ import shutil
 import glob
 
 
-class DirectoryUtil():
-
+class DirectoryUtil:
     def create_directory(self, directory_path):
         if (not os.path.exists(directory_path)) and (os.path.isdir(directory_path)):
             os.makedirs(directory_path)
@@ -63,7 +62,7 @@ class DirectoryUtil():
     def move_all_files_in_dir(self, src_dir_path, dst_dir_path):
         result = False
         if os.path.isdir(src_dir_path) and os.path.isdir(dst_dir_path):
-            for file_path in glob.glob(src_dir_path + '\\*'):
+            for file_path in glob.glob(src_dir_path + "\\*"):
                 shutil.move(file_path, dst_dir_path)
 
             result = True
