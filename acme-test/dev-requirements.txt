@@ -1,4 +1,5 @@
 pipdeptree
+graphviz
 
 pytest
 pytest-xdist
