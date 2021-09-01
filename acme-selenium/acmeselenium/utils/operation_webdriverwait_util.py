@@ -80,7 +80,8 @@ def retry_webdriverwait(
     active_test_mode,
 ):
     """
-    Performs a search attempt for an item by setting a delay time, a search condition, defining a retry policy, refresh and test mode
+    Performs a search attempt for an item by setting a delay time, a search condition, defining a retry policy,
+    refresh and test mode
     """
 
     config_parameters = (
@@ -128,7 +129,8 @@ def retry_webdriverwait(
 
 def retry_webdriverwait_default(locator, driver, delay, until_element_ec, max_retries):
     """
-    Performs a search attempt for an item by setting a delay time, a search condition (expected_conditions) and defining a retry policy
+    Performs a search attempt for an item by setting a delay time, a search condition (expected_conditions) a
+    nd defining a retry policy
     """
 
     return retry_webdriverwait(
@@ -140,7 +142,8 @@ def test_retry_webdriverwait_default(
     locator, driver, delay, until_element_ec, max_retries
 ):
     """
-    Test Performs a search attempt for an item by setting a delay time, a search condition (expected_conditions) and defining a retry policy
+    Test Performs a search attempt for an item by setting a delay time, a search condition (expected_conditions)
+    and defining a retry policy
     """
 
     return retry_webdriverwait(
