@@ -9,63 +9,70 @@ from shutil import rmtree
 from setuptools import setup, find_packages, Command
 
 
-# Package meta-data
+# Project path
+path = os.path.abspath(os.path.dirname(__file__))
+
+
+# Package meta-data default values
 NAME = "acme-test"
-DESCRIPTION = "xxx"
-URL = "xxx"
-EMAIL = "xxxxx"
+DESCRIPTION = "Architecture library (dependency) related with testing to develop the different parts in \
+    a homogeneus way"
+URL = "https://github.com/vjmadrid/workspace-python-architecture-lab/tree/main/acme-test"
+EMAIL = "vjmadrid"
 AUTHOR = "Víctor Madrid"
 REQUIRES_PYTHON = ">=3.9.0"
 VERSION = "0.0.1"
+# VERSION = False
+PACKAGES_EXCLUDE = ["tests", "*.tests", "*.tests.*", "tests.*", "docs", "examples"]
+REQUIREMENTS_FILE = "dev-requirements.txt"
 
-# Packages required
-REQUIRED = [
-    # 'requests', ...
-]
 
-# Package optional
-EXTRAS = {
-    # 'fancy feature': ['django'],
-}
+# Prepare info dictionary
+info_dict = {}
 
-path = os.path.abspath(os.path.dirname(__file__))
+# Load version -> the package's __version__.py module as a info dictionary
+if not VERSION:
+    # project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
+    # with open(os.path.join(path, project_slug, "__version__.py")) as f:
+    with open(os.path.join(path, NAME, '__version__.py')) as f:
+        exec(f.read(), info_dict)
+else:
+    info_dict["__version__"] = VERSION
+
 
 # Load README.md
-# Option 1
-# with open('README.md') as f:
-#    long_description = f.read()
-
-# Option 2
 try:
     with io.open(os.path.join(path, "README.md"), encoding="utf-8") as f:
-        long_description = "\n" + f.read()
+        info_dict["long_description"] = "\n" + f.read()
 except FileNotFoundError:
-    long_description = DESCRIPTION
+    info_dict["long_description"] = DESCRIPTION
+
 
 # Load LICENSE
-# Option 1
 with open("LICENSE") as f:
-    license = f.read()
+    info_dict["license"] = f.read()
 
-# Load the package's __version__.py module as a dictionary.
-about = {}
-if not VERSION:
-    project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
-    with open(os.path.join(path, project_slug, "__version__.py")) as f:
-        exec(f.read(), about)
-else:
-    about["__version__"] = VERSION
+
+# Load Packages required
+REQUIRED_DEFAULT = [
+    # N/A
+]
+
+# Load Package optional
+EXTRAS_DEFAULT = {
+    # N/A
+}
 
 
 class UploadCommand(Command):
-    """Support setup.py upload."""
+    """Support setup.py upload"""
 
-    description = "Build and publish the package."
+    description = "Build and publish the package"
     user_options = []
 
     @staticmethod
     def status(s):
-        """Prints things in bold."""
+        """Prints things in bold"""
         print("\033[1m{0}\033[0m".format(s))
 
     def initialize_options(self):
@@ -76,7 +83,7 @@ class UploadCommand(Command):
 
     def run(self):
         try:
-            self.status("Removing previous builds…")
+            self.status("Removing previous builds ...")
             rmtree(os.path.join(path, "dist"))
         except OSError:
             pass
@@ -88,43 +95,36 @@ class UploadCommand(Command):
         # os.system('twine upload dist/*')
 
         self.status("Pushing git tags…")
-        os.system("git tag v{0}".format(about["__version__"]))
+        os.system("git tag v{0}".format(info_dict['__version__']))
         os.system("git push --tags")
 
         sys.exit()
 
 
 setup(
+    python_requires=REQUIRES_PYTHON,
     name=NAME,
-    version=VERSION,
-    # version=about['__version__'],
+    version=info_dict['__version__'],
     description=DESCRIPTION,
-    long_description=long_description,
+    long_description=info_dict['long_description'],
     long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
-    license=license,
+    license=info_dict["license"],
     url=URL,
-    python_requires=REQUIRES_PYTHON,
-    # packages=find_packages(where='src',exclude=["tests", "*.tests", "*.tests.*", "tests.*", 'docs']),
-    # package_dir={"": "src"},
-    packages=find_packages(
-        exclude=["tests", "*.tests", "*.tests.*", "tests.*", "docs", "examples"]
-    ),
-    install_requires=REQUIRED,
-    extras_require=EXTRAS,
+    packages=find_packages(exclude=PACKAGES_EXCLUDE),
+    install_requires=[i.strip() for i in open(REQUIREMENTS_FILE).readlines()],
+    extras_require=EXTRAS_DEFAULT,
     include_package_data=True,
-    # install_requires=[i.strip() for i in open("requirements.txt").readlines()],
     scripts=[],
     classifiers=[
-        # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: Python",
-    ],
+    ]
     # $ setup.py publish support
     # cmdclass={
     #    'upload': UploadCommand,

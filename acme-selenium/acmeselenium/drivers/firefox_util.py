@@ -6,6 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+from webdriver_manager.firefox import GeckoDriverManager
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,6 +30,13 @@ def setup_driver_firefox():
     profile.update_preferences()
 
     return webdriver.Firefox(capabilities=caps, firefox_profile=profile)
+
+
+def setup_driver_firefox_install():
+    logger.debug("[SETUP] [setup_driver_chrome_install] Setup Driver Chrome with Install ...")
+
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+    return driver
 
 
 def setup_driver_firefox_headless():

@@ -1,14 +1,16 @@
 # acme-test
 
-This project represents a architecture library (dependency) related with testing to develop the different parts in a homogeneus way
+This project represents a architecture library (dependency) related with **testing** to develop the different parts in a homogeneus way
 
 This library stands out for:
 
 * Provides utility classes to facilitaty testing with certain elements : exceptions, constant classes, etc.
+* Provides tools to control the quality of the projects
 * Define unit testing framework and their versioning
 * Define mocking testing framework and their versioning
 * Define matcher testing framework and their versioning
-* Define architecture testing framework and their versioning
+* Define tools to control the quality of the projects
+* Provides utilities for ink and formatting management
 
 
 
@@ -80,6 +82,26 @@ Third Party
     * regex
     * tomli
     * typing-extensions
+
+* **Sphinx** [4.1.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation2](http://pylint.pycqa.org/en/latest/)
+
+  * Includes :
+    * alabaster
+    * babel
+    * docutils
+    * imagesize
+    * Jinja2
+    * packaging
+    * Pygments
+    * requests
+    * setuptools
+    * snowballstemmer
+    * sphinxcontrib-applehelp
+    * sphinxcontrib-devhelp
+    * sphinxcontrib-htmlhelp
+    * sphinxcontrib-jsmath
+    * sphinxcontrib-qthelp
+    * sphinxcontrib-serializinghtml
 
 * **pre-commit** [2.14.0] : Framework for managing and maintaining multi-language pre-commit hooks -> [Pypi](https://pypi.org/project/pre-commit/) [Documentation](https://pre-commit.com/)
 

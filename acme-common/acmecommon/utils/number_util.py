@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-import math
-
-
 class NumberUtil:
 
     _int_value = 0
@@ -41,7 +37,7 @@ class NumberUtil:
             NumberUtils(123456).round_down(3) returns 123000
         """
 
-        return self._int_value - (self._int_value % int(math.pow(10, int(value))))
+        return self._int_value - (self._int_value % int(10 ** int(value)))
 
     def insert_comma(self):
         """

@@ -80,7 +80,7 @@ class FileNameUtil:
 
         if EXTENSION_DICT[extension] is None:
             raise NotSupportedException(
-                message="This extension[" + str(extension) + "] is not supported.",
+                message="This extension[" + str(extension) + "] is not supported",
                 errors={"code": "NOT_SUPPORTED_EXTENSION"},
             )
 

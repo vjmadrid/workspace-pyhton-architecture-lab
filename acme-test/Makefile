@@ -1,3 +1,7 @@
+#
+# Makefile for Project Management
+#  
+
 .DEFAULT_GOAL := help
 
 # *** GENERAL ***
@@ -59,23 +63,34 @@ coverage: ## Run tests with coverage
 
 
 
+# *** DOCS ***
+
+docs: ## Create the documentation
+	@echo "Build completed"
+	cd ./docs/sphinx && make html
+
+
+
+# *** INSTALL / UNINSTALL ***
+
+install: uninstall ## Distribute package install local
+	python3 setup.py develop
+
+uninstall: ## Distribute package uninstall local
+	python3 setup.py develop --uninstall
+
+
+
 # *** DISTRIBUTE ***
 
 distribute-package-install: ## Distribute package install
 	pip install -Ue .
-
-distribute-install-develop: distribute-uninstall-develop ## Distribute package install mode develop
-	python3 setup.py develop
-
-distribute-uninstall-develop: ## Distribute package uninstall mode develop
-	python3 setup.py develop --uninstall
 
 distribute-install: ## Distribute package install by setup.py
 	python3 setup.py install
 
 distribute-local: ## Distribute package mode local (folder : sdist)
 	python3 setup.py sdist
-
 
 
 
@@ -93,8 +108,35 @@ clean-distribute: clean-build ## Remove *.egg-info files and *.egg, build and di
 
 clean : clean-distribute ## Remove *.pyc files and __pycache__ directory
 
+
+
+# *** BUILD ***
+
+build: ## Build
+	make clean
+	make deps-install-
+	make lint
+	make test
+	make docs
+	make install-develop
+	@echo "Build completed"
+
+
+
+# *** RUN ***
+
 run: ## Run
 	@echo "N/A"
+
+
+
+# *** UPLOAD ****
+upload: ## Upload
+	python3 setup.py 
+	@echo "Upload completed"
+
+
+# *** HELP ***
 
 help: ## Show help message
 	@IFS=$$'\n' ; \

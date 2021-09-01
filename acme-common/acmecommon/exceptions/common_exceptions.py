@@ -8,8 +8,7 @@ class NotSupportedException(Exception):
 
 
 class CustomException(Exception):
-    def __init__(self, *args, **kwargs):
-        super(__class__, self).__init__(*args, **kwargs)
+    pass
 
 
 def raise_custom_exception():

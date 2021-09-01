@@ -6,6 +6,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+logger = logging.getLogger(__name__)
+
 
 # ********************
 #    Setup Chrome
@@ -16,7 +21,7 @@ DEFAULT_FIREFOX_DOWNLOAD_FOLDER = "/Users/vjmadrid/Downloads/"
 
 
 def setup_driver_chrome():
-    logging.getLogger().debug("[SETUP] [setp_driver_chrome] Setup Driver Chrome ...")
+    logger.debug("[SETUP] [setp_driver_chrome] Setup Driver Chrome ...")
 
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "normal"
@@ -28,6 +33,13 @@ def setup_driver_chrome():
     # return webdriver.Chrome(chrome_options=chrome_options)
 
     return webdriver.Chrome(desired_capabilities=caps)
+
+
+def setup_driver_chrome_install():
+    logger.debug("[SETUP] [setup_driver_chrome_install] Setup Driver Chrome with Install ...")
+
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    return driver
 
 
 def setup_driver_chrome_headless():
