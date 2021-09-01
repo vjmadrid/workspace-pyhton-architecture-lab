@@ -63,6 +63,22 @@ Third Party
     * **mccabe** [0.6.1] : Framework for checking Python with McCabe complexity -> [Pypi](https://pypi.org/project/mccabe/) [Documentation](https://github.com/pycqa/mccabe)
     * Supports storing its configuration in the following places :setup.cfg, tox.ini, or .flake8 (Flake8 looks for ~\.flake8 on Windows and ~/.config/flake8 on Linux and other Unix systems)
 
+* **pytest-mock** [3.6.1] : Thin-wrapper around the mock package for easier use with pytest -> [Pypi](https://pypi.org/project/pytest-mock/) [Documentation](https://github.com/pytest-dev/pytest-mock/)
+
+  * Includes :
+    * pytest
+
+* **pytest-cases** [3.6.3] : Separate test code from test cases in pytest -> [Pypi](https://pypi.org/project/pytest-cases/) [Documentation](https://github.com/smarie/python-pytest-cases/)
+
+  * Includes :
+    * decopatch
+    * makefun
+
+* **pytest-asyncio** [0.15.1] : Pytest support for asyncio -> [Pypi](https://pypi.org/project/pytest-asyncio/) [Documentation](https://github.com/pytest-dev/pytest-asyncio)
+
+  * Includes :
+    * pytest
+
 * **pylint** [2.10.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation2](http://pylint.pycqa.org/en/latest/)
 
   * Includes :
