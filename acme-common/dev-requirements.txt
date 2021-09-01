@@ -2,3 +2,5 @@ acme-test
 
 python-dateutil
 
+pyyaml
+

@@ -26,3 +26,6 @@ Third Party
 
   * Includes :
     * six
+
+* **PyYAML** [5.4.1] : YAML parser and emitter for Python -> [Pypi](https://pypi.org/project/PyYAML/) [Documentation](https://github.com/yaml/pyyaml)
+
