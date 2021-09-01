@@ -29,3 +29,5 @@ Third Party
 
 * **PyYAML** [5.4.1] : YAML parser and emitter for Python -> [Pypi](https://pypi.org/project/PyYAML/) [Documentation](https://github.com/yaml/pyyaml)
 
+* **python-dotenv** [0.10.1] : YAML parser and emitter for Python -> [Pypi](https://pypi.org/project/PyYAML/https://pypi.org/project/python-dotenv/) [Documentation](https://github.com/theskumar/python-dotenv)
+
