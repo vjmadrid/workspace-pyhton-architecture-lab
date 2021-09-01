@@ -114,11 +114,11 @@ clean : clean-distribute ## Remove *.pyc files and __pycache__ directory
 
 build: ## Build
 	make clean
-	make deps-install-
+	make deps-install-dev
 	make lint
 	make test
 	make docs
-	make install-develop
+	make install
 	@echo "Build completed"
 
 

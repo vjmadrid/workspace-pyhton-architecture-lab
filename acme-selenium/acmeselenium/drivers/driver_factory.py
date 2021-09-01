@@ -9,6 +9,7 @@ from .web_driver_listener import WebDriverListener
 
 
 class DriverFactory:
+
     @staticmethod
     def get_driver_firefox(headless_mode=False) -> EventFiringWebDriver:
         options = webdriver.FirefoxOptions()
@@ -41,10 +42,11 @@ class DriverFactory:
         return driver
 
     @staticmethod
-    def get_driver(self, browser, headless_mode=False) -> EventFiringWebDriver:
-        if browser == "firefox":
-            return self.get_driver_firefox(headless_mode)
-        elif browser == "chrome":
-            return self.get_driver_chrome(headless_mode)
+    def get_driver(browser, headless_mode=False) -> EventFiringWebDriver:
+        print(str(browser))
+        if browser == 'firefox':
+            return DriverFactory.get_driver_firefox(headless_mode)
+        elif browser == 'chrome':
+            return DriverFactory.get_driver_chrome(headless_mode)
         else:
             raise Exception("Provide valid driver name")

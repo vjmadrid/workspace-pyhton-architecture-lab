@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from acme.common.exceptions.common_exceptions import NotSupportedException
+from acmecommon.exceptions.common_exceptions import NotSupportedException
 
 
 EXTENSION_DICT = {

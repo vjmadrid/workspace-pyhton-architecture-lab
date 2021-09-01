@@ -3,7 +3,8 @@
 import unittest
 import os
 from pathlib import Path
-from acme.common.utils.directory_util import DirectoryUtil
+
+from acmecommon.utils.directory_util import DirectoryUtil
 
 
 class TestDirectoryUtil(unittest.TestCase):

@@ -3,7 +3,7 @@
 
 import unittest
 
-from acme.common.utils.dict_util import DicUtil
+from acmecommon.utils.dict_util import DicUtil
 
 
 class TestDateUtil(unittest.TestCase):
