@@ -1,6 +1,5 @@
 import logging
 
-from acmeselenium.drivers import firefox_util
 from acmeselenium.drivers.driver_factory import DriverFactory
 from acmeselenium.utils import navigation_util, verification_util
 

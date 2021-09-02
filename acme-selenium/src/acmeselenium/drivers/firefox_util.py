@@ -60,7 +60,7 @@ def default_firefox_options():
 
 
 def setup_driver_firefox_default():
-    logger.debug("[SETUP] [setup_driver_firefox_headless] Setup Driver Firefox Headless ...")
+    logger.debug("[SETUP] [setup_driver_firefox_default] Setup Driver Firefox Default ...")
 
     return webdriver.Firefox(
         executable_path=DEFAULT_FIREFOX_DRIVER_PATH, options=default_firefox_options()
@@ -68,7 +68,7 @@ def setup_driver_firefox_default():
 
 
 def setup_driver_firefox_with_options(custom_options):
-    logger.debug("[SETUP] [setup_driver_firefox_headless] Setup Driver Firefox Headless ...")
+    logger.debug("[SETUP] [setup_driver_firefox_headless] Setup Driver Firefox with Options ...")
 
     return webdriver.Firefox(
         executable_path=DEFAULT_FIREFOX_DRIVER_PATH, options=custom_options

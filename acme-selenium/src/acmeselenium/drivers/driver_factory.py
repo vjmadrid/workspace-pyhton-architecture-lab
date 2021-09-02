@@ -43,10 +43,9 @@ class DriverFactory:
 
     @staticmethod
     def get_driver(browser, headless_mode=False) -> EventFiringWebDriver:
-        print(str(browser))
         if browser == 'firefox':
             return DriverFactory.get_driver_firefox(headless_mode)
         elif browser == 'chrome':
             return DriverFactory.get_driver_chrome(headless_mode)
         else:
-            raise Exception("Provide valid driver name")
+            return None

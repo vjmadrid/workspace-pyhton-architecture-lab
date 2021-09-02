@@ -42,22 +42,33 @@ def setup_driver_chrome_install():
     return driver
 
 
-def setup_driver_chrome_headless():
-    logging.getLogger().debug(
-        "[SETUP] [setup_driver_chrome_headless] Setup Driver Chrome Headless ..."
-    )
-
+def default_chrome_options():
     options = Options()
-    # options.add_argument('headless')
-    options.headless = True
-    options.add_argument("--window-size=1920,1200")
+    options.add_argument('headless')
+    # options.headless = True
+    # options.add_argument("--window-size=1920,1200")
 
     # prefs["profile.default_content_settings.popups"]=0
     # prefs["download.default_directory"]=downloadPath
     # options.add_experimental_option("prefs", prefs)
-    #browser = webdriver.Chrome(options=options, executable_path=CHROMEDRIVER_PATH)
+    # browser = webdriver.Chrome(options=options, executable_path=CHROMEDRIVER_PATH)
 
     # options.add_argument('--ignore-ssl-errors=yes')
     # options.add_argument('--ignore-certificate-errors')
+    return options
 
-    return webdriver.Chrome(options=options, executable_path=DEFAULT_CHROME_DRIVER_PATH)
+
+def setup_driver_chrome_default():
+    logger.debug("[SETUP] [setup_driver_chrome_default] Setup Driver Chrome Headless ...")
+
+    return webdriver.Chrome(
+        executable_path=DEFAULT_CHROME_DRIVER_PATH, options=default_chrome_options()
+    )
+
+
+def setup_driver_chrome_with_options(custom_options):
+    logger.debug("[SETUP] [setup_driver_chrome_with_options] Setup Driver Chrome with Options ...")
+
+    return webdriver.Chrome(
+        executable_path=DEFAULT_CHROME_DRIVER_PATH, options=custom_options
+    )
