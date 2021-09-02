@@ -26,12 +26,6 @@ deps-install: ## Install dependencies 'requirements.txt' file (With versions)
 deps-tree: ## Show dependency tree of packages
 	pipdeptree
 
-deps-tree-json: ## Show dependency tree of packages json
-	pipdeptree --json-tree
-
-deps-tree-graph: ## Show dependency tree of packages graph
-	pipdeptree --graph-output png > dependencies.png
-
 deps-reset: ## Reset all requirements
 	pip freeze | xargs pip uninstall -y
 
@@ -43,7 +37,7 @@ lint: ## Lint and static-check code
 	flake8 --version
 	flake8 .
 	pylint --version
-	pylint src
+	pylint acmemedia
 	pylint tests
 
 format-check: ## Format check code
@@ -64,9 +58,9 @@ test-lint: ## Lint and static-check code
 
 coverage: ## Run tests with coverage
 	coverage erase
-	coverage run --include=src/* -m pytest -ra
+	coverage run --include=acmecommon/* -m pytest -ra
 	coverage report -m
-	coverage html
+
 
 
 # *** DOCS ***
@@ -77,41 +71,26 @@ docs: ## Create the documentation
 
 
 
-# *** ALLURE ***
-allure-reports: ## Create Allure reports
-	pytest --alluredir=reports
-	
-
-
-
 # *** INSTALL / UNINSTALL ***
 
-install: clean uninstall ## Install package local
+install: uninstall ## Distribute package install local
 	python3 setup.py develop
 
-uninstall: ## Uninstall package local
+uninstall: ## Distribute package uninstall local
 	python3 setup.py develop --uninstall
-
-install-site: clean ## Install the package to the active Python's site-packages
-	python3 setup.py install
 
 
 
 # *** DISTRIBUTE ***
 
-dist-package-install: ## Distribute package install
+distribute-package-install: ## Distribute package install
 	pip install -Ue .
 
-dist-install: ## Distribute package install by setup.py
+distribute-install: ## Distribute package install by setup.py
 	python3 setup.py install
 
-dist-sdist: ## Distribute package mode local (folder : sdist)
+distribute-local: ## Distribute package mode local (folder : sdist)
 	python3 setup.py sdist
-
-dist-wheel: ## Distribute package mode local (folder : sdist)
-	python3 setup.py bdist_wheel
-	
-dist: clean dist-sdist dist-wheel ## Distribute source and wheel package
 
 
 
@@ -123,28 +102,11 @@ clean-build: ## Remove elements for build
 	find . -name '*.pytest_cache' -type d | xargs rm -fr
 	find . -name '*.pyc' -type d | xargs rm -fr
 
-clean-test: ## Remove test and coverage artifacts
-	rm -fr .tox/
-	rm -fr .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
+clean-distribute: clean-build ## Remove *.egg-info files and *.egg, build and dist directories
+	rm -vrf ./build ./dist ./*.pyc ./*.tgz ./*.egg-info ./*.egg
+	find . -name '*.egg-info/' -type d | xargs rm -fr
 
-clean-pyc: ## Remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
-
-clean-distribute: ## Remove *.egg-info files and *.egg, build and dist directories
-	rm -vrf build/ 
-	rm -vrf dist/ 
-	rm -vrf ./*.tgz 
-	rm -vrf .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
-
-
-clean : clean-build clean-pyc clean-test clean-distribute  ## Remove all build, test, coverage and distribute Python artifacts
+clean : clean-distribute ## Remove *.pyc files and __pycache__ directory
 
 
 
@@ -152,11 +114,11 @@ clean : clean-build clean-pyc clean-test clean-distribute  ## Remove all build, 
 
 build: ## Build
 	make clean
-	make deps-install-
+	make deps-install-dev
 	make lint
 	make test
 	make docs
-	make install-develop
+	make install
 	@echo "Build completed"
 
 
@@ -164,7 +126,7 @@ build: ## Build
 # *** RUN ***
 
 run: ## Run
-	N/A
+	@echo "N/A"
 
 
 

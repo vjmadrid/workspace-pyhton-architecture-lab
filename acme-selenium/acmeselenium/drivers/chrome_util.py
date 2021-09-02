@@ -48,8 +48,14 @@ def setup_driver_chrome_headless():
     )
 
     options = Options()
+    # options.add_argument('headless')
     options.headless = True
     options.add_argument("--window-size=1920,1200")
+
+    # prefs["profile.default_content_settings.popups"]=0
+    # prefs["download.default_directory"]=downloadPath
+    # options.add_experimental_option("prefs", prefs)
+    #browser = webdriver.Chrome(options=options, executable_path=CHROMEDRIVER_PATH)
 
     # options.add_argument('--ignore-ssl-errors=yes')
     # options.add_argument('--ignore-certificate-errors')

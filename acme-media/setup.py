@@ -14,10 +14,10 @@ path = os.path.abspath(os.path.dirname(__file__))
 
 
 # Package meta-data default values
-NAME = "acme-test"
+NAME = "acme-media"
 DESCRIPTION = "Architecture library (dependency) related with testing to develop the different parts in \
     a homogeneus way"
-URL = "https://github.com/vjmadrid/workspace-python-architecture-lab/tree/main/acme-test"
+URL = "https://github.com/vjmadrid/workspace-python-architecture-lab/tree/main/acme-common"
 EMAIL = "vjmadrid"
 AUTHOR = "Víctor Madrid"
 REQUIRES_PYTHON = ">=3.9.0"
@@ -112,8 +112,7 @@ setup(
     author_email=EMAIL,
     license=info_dict["license"],
     url=URL,
-    package_dir={'': 'src'},
-    packages=find_packages("src", exclude=PACKAGES_EXCLUDE),
+    packages=find_packages(exclude=PACKAGES_EXCLUDE),
     install_requires=[i.strip() for i in open(REQUIREMENTS_FILE).readlines()],
     extras_require=EXTRAS_DEFAULT,
     include_package_data=True,

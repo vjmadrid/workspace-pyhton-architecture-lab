@@ -4,7 +4,7 @@ import unittest
 import os
 from pathlib import Path
 
-from acmecommon.utils.directory_util import DirectoryUtil
+from src.acmecommon.utils.directory_util import DirectoryUtil
 
 
 class TestDirectoryUtil(unittest.TestCase):

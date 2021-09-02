@@ -3,7 +3,7 @@
 
 import unittest
 
-from acmecommon.utils.filename_util import FileNameUtil
+from src.acmecommon.utils.filename_util import FileNameUtil
 
 
 class TestFileNameUtil(unittest.TestCase):

@@ -19,6 +19,4 @@ class ConfigIniParser:
         for key in section_keys:
             section_dict[key] = self.config.get(section, key)
 
-            # section_dict[key] = None
-
         return section_dict

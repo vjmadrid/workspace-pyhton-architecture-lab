@@ -31,5 +31,3 @@ Third Party
 
 * **python-dotenv** [0.10.1] : YAML parser and emitter for Python -> [Pypi](https://pypi.org/project/PyYAML/https://pypi.org/project/python-dotenv/) [Documentation](https://github.com/theskumar/python-dotenv)
 
-* **xlrd** [2.0.1] : Library for developers to extract data from Microsoft Excel (tm) .xls spreadsheet files -> [Pypi](https://pypi.org/project/xlrd/) [Documentation](http://www.python-excel.org/)
-

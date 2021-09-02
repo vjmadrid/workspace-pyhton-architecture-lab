@@ -41,13 +41,13 @@ def setup_driver_firefox_install():
 
 def default_firefox_options():
     options = Options()
-    # options.headless = True
+    options.headless = True
 
     # Notifications
     options.set_preference("dom.webnotifications.enabled", False)
 
     # Download
-    # options.set_preference("browser.download.dir", DEFAULT_FIREFOX_DOWNLOAD_FOLDER)
+    options.set_preference("browser.download.dir", DEFAULT_FIREFOX_DOWNLOAD_FOLDER)
     options.set_preference("browser.download.folderList", 2)
     options.set_preference("browser.download.manager.showWhenStarting", False)
     options.set_preference("browser.helperApps.neverAsk.saveToDisk", "audio/mp3")

@@ -6,4 +6,3 @@ pyyaml
 python-dotenv
 
 xlrd
-

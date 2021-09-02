@@ -30,6 +30,8 @@ Third Party
   * Includes :
     * pip
 
+* **graphviz** [0.17] : Simple Python interface for Graphviz -> [Pypi](https://pypi.org/search/?q=graphviz) [Documentation](https://github.com/xflr6/graphviz)
+
 * **pytest** [6.2.4] : Framework for use unit testing (with over 850+ external plugins ) -> [Pypi](https://pypi.org/project/pytest/) [Documentation](https://docs.pytest.org/en/latest/)
 
   * Includes :
