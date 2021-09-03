@@ -4,79 +4,82 @@
 from selenium.common.exceptions import StaleElementReferenceException
 
 
-def find(driver, how, what, active_refresh):
-    """
-    Performs a search attempt for an item by setting how and what
-    """
+class OperationFindUtil:
 
-    if active_refresh:
-        driver.refresh()
-
-    element = driver.find_element(how, what)
-    return element
-
-
-def find_click(driver, how, what, active_refresh):
-    """
-    Performs a search attempt for an item by setting how and what + click
-    """
-
-    element = find(driver, how, what, active_refresh).click()
-    return element
-
-
-def retry_find(driver, how, what, max_retries, active_refresh):
-    """
-    Reintenta hasta encontrar el elemento y realiza click sobre el
-    """
-
-    num_retries = 1
-    while num_retries < max_retries:
-
-        try:
-            element = driver.find_element(how, what)
-            return element
-        except StaleElementReferenceException:
-            print("Stale reference on click or find!!!... retrying ")
+    @staticmethod
+    def find(driver, how, what, active_refresh):
+        """
+        Performs a search attempt for an item by setting how and what
+        """
 
         if active_refresh:
             driver.refresh()
 
-        num_retries = num_retries + 1
+        element = driver.find_element(how, what)
+        return element
 
-    return find_click(driver, how, what, active_refresh)
+    @staticmethod
+    def find_click(driver, how, what, active_refresh):
+        """
+        Performs a search attempt for an item by setting how and what + click
+        """
 
+        element = OperationFindUtil.find(driver, how, what, active_refresh).click()
+        return element
 
-def run_active_click(driver, element, is_active_click=False):
-    if is_active_click:
-        element.click()
-    else:
-        driver.execute_script("arguments[0].click();", element)
+    @staticmethod
+    def retry_find(driver, how, what, max_retries, active_refresh):
+        """
+        Reintenta hasta encontrar el elemento y realiza click sobre el
+        """
 
+        num_retries = 1
+        while num_retries < max_retries:
 
-def retry_find_click(
-    driver, how, what, max_retries, active_refresh, is_active_click=False
-):
-    """
-    Reintenta hasta encontrar el elemento y realiza click sobre el
-    """
+            try:
+                element = driver.find_element(how, what)
+                return element
+            except StaleElementReferenceException:
+                print("Stale reference on click or find!!!... retrying ")
 
-    num_retries = 1
-    while num_retries < max_retries:
+            if active_refresh:
+                driver.refresh()
 
-        try:
-            element = driver.find_element(how, what)
-            run_active_click(driver, element, is_active_click)
-            return element
-        except StaleElementReferenceException:
-            print("Stale reference on click or find!!!... retrying ")
+            num_retries = num_retries + 1
 
-        if active_refresh:
-            driver.refresh()
+        return OperationFindUtil.find_click(driver, how, what, active_refresh)
 
-        num_retries = num_retries + 1
+    @staticmethod
+    def run_active_click(driver, element, is_active_click=False):
+        if is_active_click:
+            element.click()
+        else:
+            driver.execute_script("arguments[0].click();", element)
 
-    element = find(driver, how, what, active_refresh)
-    run_active_click(driver, element, is_active_click)
+    @staticmethod
+    def retry_find_click(
+        driver, how, what, max_retries, active_refresh, is_active_click=False
+    ):
+        """
+        Reintenta hasta encontrar el elemento y realiza click sobre el
+        """
 
-    return element
+        num_retries = 1
+        while num_retries < max_retries:
+
+            try:
+                element = driver.find_element(how, what)
+                OperationFindUtil.run_active_click(driver, element, is_active_click)
+                return element
+            except StaleElementReferenceException:
+                print("Stale reference on click or find!!!... retrying ")
+
+            if active_refresh:
+                driver.refresh()
+
+            num_retries = num_retries + 1
+
+        element = OperationFindUtil.find(driver, how, what, active_refresh)
+        OperationFindUtil.run_active_click(driver, element, is_active_click)
+
+        return element

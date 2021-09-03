@@ -6,21 +6,16 @@ import sys
 from selenium.webdriver.common.by import By
 
 from acmeselenium.utils import test_util
+from acmeselenium.pages.under_construction_page import UnderConstructionPage
 
 
 logger = logging.getLogger(__name__)
 
 
-class UnderConstructionPage:
-
-    NAME = "Under Construction Page"
-    URL_PATH = "/maintenance"
-
-
 def verify_if_exist_by_xpath(driver, xpath_element):
-    config_parameters = '{ "xpathElement":' + str(xpath_element) + "}"
-    logging.getLogger().debug(
-        "[VERIFICATION] [verifyIfExistByXpath] Verify Exist By XPath ... -> Parameters : %s", config_parameters
+    config_parameters = '{ "xpath_element":' + str(xpath_element) + "}"
+    logger.debug(
+        "[VERIFICATION] Verify Exist By XPath ... -> Parameters : %s", config_parameters
     )
 
     result_selected = driver.find_elements(By.XPATH, xpath_element)
@@ -31,7 +26,7 @@ def verify_valid_url(driver, definied_url, test_mode):
     config_parameters = (
         '{ "definiedURL":' + str(definied_url) + ', "test_mode":' + str(test_mode) + "}"
     )
-    logging.getLogger().debug(
+    logger.debug(
         "[VERIFICATION] [verify_valid_url] Verify Valid URL ... -> Parameters : %s", config_parameters
     )
 

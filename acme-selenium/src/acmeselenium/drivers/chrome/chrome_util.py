@@ -18,7 +18,7 @@ def enable_download_headless(browser, download_dir):
     params = {
         'cmd': 'Page.setDownloadBehavior',
         'params': {
-            'behavior': 'allow', 
+            'behavior': 'allow',
             'downloadPath': download_dir
         }
     }

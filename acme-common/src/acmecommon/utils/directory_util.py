@@ -7,6 +7,7 @@ import glob
 
 
 class DirectoryUtil:
+
     def create_directory(self, directory_path):
         if (not os.path.exists(directory_path)) and (os.path.isdir(directory_path)):
             os.makedirs(directory_path)

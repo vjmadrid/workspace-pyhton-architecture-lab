@@ -26,7 +26,7 @@ OPTIONS_DICT = {
 }
 
 
-# @unittest.skip('Skipping_unit_tests')
+@unittest.skip('Skipping_unit_tests')
 class TestChromeDownload(unittest.TestCase):
 
     def test_file_download(self):

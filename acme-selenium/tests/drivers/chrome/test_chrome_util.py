@@ -12,6 +12,7 @@ TEST_GOOGLE_URL = 'https://www.google.com'
 TEST_ELEMENT_SELECTOR = 'input[name=q]'
 
 
+@unittest.skip('Skipping_unit_tests')
 class TestChromeUtil(unittest.TestCase):
 
     def setUp(self):

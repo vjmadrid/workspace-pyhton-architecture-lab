@@ -45,9 +45,9 @@ def default_chrome_options(options_dict):
         raise ValueError('Options invalid')
 
     chrome_options = webdriver.ChromeOptions()
-    #chrome_options.headless = options_dict['headless']
+    # chrome_options.headless = options_dict['headless']
 
-    #if options_dict['headless'] == True:
+    # if options_dict['headless'] == True:
     chrome_options.add_argument("--headless")
 
     # chrome_options.add_argument('--disable-download-notification')
