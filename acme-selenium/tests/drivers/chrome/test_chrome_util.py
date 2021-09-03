@@ -4,7 +4,7 @@
 import unittest
 
 
-from src.acmeselenium.drivers import chrome_util
+from acmeselenium.drivers.chrome import chrome_util
 from selenium.webdriver.chrome.options import Options
 
 
