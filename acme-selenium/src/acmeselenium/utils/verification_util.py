@@ -12,48 +12,51 @@ from acmeselenium.pages.under_construction_page import UnderConstructionPage
 logger = logging.getLogger(__name__)
 
 
-def verify_if_exist_by_xpath(driver, xpath_element):
-    config_parameters = '{ "xpath_element":' + str(xpath_element) + "}"
-    logger.debug(
-        "[VERIFICATION] Verify Exist By XPath ... -> Parameters : %s", config_parameters
-    )
+class VerificationUtil:
 
-    result_selected = driver.find_elements(By.XPATH, xpath_element)
-    return len(result_selected) > 0
-
-
-def verify_valid_url(driver, definied_url, test_mode):
-    config_parameters = (
-        '{ "definiedURL":' + str(definied_url) + ', "test_mode":' + str(test_mode) + "}"
-    )
-    logger.debug(
-        "[VERIFICATION] [verify_valid_url] Verify Valid URL ... -> Parameters : %s", config_parameters
-    )
-
-    result = True
-    if UnderConstructionPage.URL_PATH in driver.current_url:
-        test_util.show_error_message(
-            test_mode,
-            "[VERIFICATION] [verify_valid_url] ERROR. Under Construction Page",
+    @staticmethod
+    def verify_if_exist_by_xpath(driver, xpath_element):
+        config_parameters = '{ "xpath_element":' + str(xpath_element) + "}"
+        logger.debug(
+            "[VERIFICATION] Verify Exist By XPath ... -> Parameters : %s", config_parameters
         )
-        result = False
 
-    if definied_url not in driver.current_url:
-        error_message = (
-            "[VERIFICATION] [verify_valid_url] ERROR. URL Target Page "
-            + str(driver.current_url)
-            + " NOT contains "
-            + str(definied_url)
+        result_selected = driver.find_elements(By.XPATH, xpath_element)
+        return len(result_selected) > 0
+
+    @staticmethod
+    def verify_valid_url(driver, definied_url, test_mode):
+        config_parameters = (
+            '{ "definiedURL":' + str(definied_url) + ', "test_mode":' + str(test_mode) + "}"
         )
-        test_util.show_error_message(test_mode, error_message)
-        result = False
+        logger.debug(
+            "[VERIFICATION] [verify_valid_url] Verify Valid URL ... -> Parameters : %s", config_parameters
+        )
 
-    return result
+        result = True
+        if UnderConstructionPage.URL_PATH in driver.current_url:
+            test_util.show_error_message(
+                test_mode,
+                "[VERIFICATION] [verify_valid_url] ERROR. Under Construction Page",
+            )
+            result = False
 
+        if definied_url not in driver.current_url:
+            error_message = (
+                "[VERIFICATION] [verify_valid_url] ERROR. URL Target Page "
+                + str(driver.current_url)
+                + " NOT contains "
+                + str(definied_url)
+            )
+            test_util.show_error_message(test_mode, error_message)
+            result = False
 
-def verify_valid_url_with_exit(driver, definied_url, test_mode):
-    verify_url = verify_valid_url(driver, definied_url, test_mode)
+        return result
 
-    if not verify_url:
-        driver.quit()
-        sys.exit()
+    @staticmethod
+    def verify_valid_url_with_exit(driver, definied_url, test_mode):
+        verify_url = VerificationUtil.verify_valid_url(driver, definied_url, test_mode)
+
+        if not verify_url:
+            driver.quit()
+            sys.exit()

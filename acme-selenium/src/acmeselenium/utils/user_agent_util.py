@@ -4,7 +4,7 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 
 
-class WaitUtil:
+class AgentUtil:
 
     @staticmethod
     def get_user_agent(driver: WebDriver):

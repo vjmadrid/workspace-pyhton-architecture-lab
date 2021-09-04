@@ -16,6 +16,12 @@ class TestFileNameUtil(unittest.TestCase):
     TEST_CONTENT_TYPE = "image/png"
     TEST_OTHER_FILENAME_EXT = "filename.png"
 
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
     def test_extract_file_name(self):
         self.assertEqual(
             self.TEST_FILENAME_EXT,

@@ -7,6 +7,13 @@ from src.acmecommon.utils.number_util import NumberUtil
 
 
 class TestNumberUtils(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
     def test_round_down(self):
         self.assertEqual(10, NumberUtil(12).round_down(1))
         self.assertEqual(120, NumberUtil(123).round_down(1))

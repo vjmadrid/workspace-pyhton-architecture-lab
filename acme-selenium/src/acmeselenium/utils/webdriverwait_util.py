@@ -1,11 +1,7 @@
-import logging
 
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-
-logger = logging.getLogger(__name__)
 
 
 class WebDriverWaitUtil:
@@ -47,6 +43,7 @@ class WebDriverWaitUtil:
             driver, EC.visibility_of_any_elements_located(locator), wait_seconds
         )
 
+    @staticmethod
     def get_when_invisible(driver: WebDriver, locator, wait_seconds=1):
         """Return WebElement by locator when is invisible
         Args:
@@ -66,6 +63,7 @@ class WebDriverWaitUtil:
 
         WebDriverWaitUtil.webdriverwait_until_condition(driver, lambda d: len(d.find_elements(*locator)) == 0)
 
+    @staticmethod
     def webdriverwait_when_clickable(driver: WebDriver, locator, wait_seconds=1):
         """
         Args:
@@ -81,7 +79,7 @@ class WebDriverWaitUtil:
 
     @staticmethod
     def webdriverwait_for_element_text(
-        driver: WebDriver, by_selenium, locator, text: str, wait_seconds=1
+        driver: WebDriver, by_selenium, locator, wait_seconds=1
     ):
         """Return WebElement by locator when a text is present in element
         Args:

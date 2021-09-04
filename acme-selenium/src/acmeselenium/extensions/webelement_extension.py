@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as ec
 
 from acmecommon.utils import sleep_util
 from acmeselenium.extensions.condition_extension import Condition
-from acmeselenium.utils.wait_util import wait_for
+from acmeselenium.utils import wait_util
 
 
 class WebElementEx():
@@ -80,7 +80,7 @@ class WebElementEx():
     @property
     def all(self):
         try:
-            wait_for(self.is_present, timeout=0)
+            wait_util.wait_for(self.is_present, timeout=0)
             result = self._scope.find_elements(*self.locator)
             return [
                 WebElementEx(

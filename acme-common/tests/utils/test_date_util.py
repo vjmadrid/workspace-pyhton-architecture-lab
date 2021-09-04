@@ -8,6 +8,13 @@ from src.acmecommon.utils.date_util import DateUtil
 
 
 class TestDateUtil(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
     def test_is_valid_date(self):
         self.assertTrue(DateUtil().is_valid_date("20151021"))
         self.assertFalse(DateUtil().is_valid_date("20151041"))
