@@ -26,4 +26,4 @@ class NavigationUtil:
             "[NAVIGATION] [go_to_page] Go to Page Class ... -> Parameters : %s", config_parameters
         )
 
-        NavitarionUtil.go_to_url(driver, class_page.URL)
+        NavigationUtil.go_to_url(driver, class_page.URL)
