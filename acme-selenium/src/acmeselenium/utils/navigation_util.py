@@ -7,7 +7,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 logger = logging.getLogger(__name__)
 
 
-class NavitarionUtil:
+class NavigationUtil:
 
     @staticmethod
     def go_to_url(driver: WebDriver, url_page: str):
