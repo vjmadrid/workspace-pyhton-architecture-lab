@@ -12,7 +12,7 @@ class DateUtil:
 
     def is_valid_date(self, birth_date):
         """ Check is a valid date
-            
+
         Usage::
             >>> import klassify
             >>> data = [("green", "foo"), ("orange", "bar")]
@@ -20,7 +20,7 @@ class DateUtil:
 
         :param train_data: A list of tuples of the form ``(color, label)``.
         :rtype: A :class:`Classifier <Classifier>`
-        
+
         Usage:
             DateUtil().is_valid_date('20151021')  # True
             DateUtil().is_valid_date('20151041')  # False

@@ -2,12 +2,26 @@
 # Makefile for Project Management
 #  
 
+SHELL = /bin/bash
 .DEFAULT_GOAL := help
+VIRTUAL_ENV_NAME := python-architecture
+
 
 # *** GENERAL ***
 
 upgrade: ## Upgrade Python modules : pip and setuptools
 	pip install -U pip setuptools wheel
+
+
+
+# *** Virtual Environment ***
+init-venv-local: ## Init virtual environment
+	python3 -m venv $(VIRTUAL_ENV_NAME)
+	sleep 5
+	source $(VIRTUAL_ENV_NAME)/bin/activate
+
+del-venv-local: ## Delete virtual environment
+	rm -rf ./$(VIRTUAL_ENV_NAME)
 
 
 

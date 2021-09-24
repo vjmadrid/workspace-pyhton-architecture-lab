@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class FileUtil:
+
     def __init__(self, stream=None):
         if stream is not None:
             self.content = stream.content
