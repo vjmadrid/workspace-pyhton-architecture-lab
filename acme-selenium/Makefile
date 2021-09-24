@@ -2,26 +2,48 @@
 # Makefile for Project Management
 #  
 
+SHELL = /bin/bash
 .DEFAULT_GOAL := help
+VIRTUAL_ENV_NAME := venv-local
+
+
 
 # *** GENERAL ***
 
 upgrade: ## Upgrade Python modules : pip and setuptools
-	pip install -U pip setuptools wheel
+	@pip install -U pip setuptools wheel
+
+
+
+# *** Virtual Environment ***
+
+venv-local-init: ## Init virtual environment
+	@python3 -m venv $(VIRTUAL_ENV_NAME)
+	@echo -e "Execute to activate : source $(VIRTUAL_ENV_NAME)/bin/activate"
+	@echo -e "Execute to deactivate : source deactivate"
+
+
+venv-local-del: ## Delete virtual environment
+	@rm -rf ./$(VIRTUAL_ENV_NAME)
+
+
+venv-local-prepare: ## Prepare virtual environment
+	@make upgrade
+	@make deps-install-dev
 
 
 
 # *** DEPENDENCIES ***
 
 deps-install-dev: ## Install dependencies 'dev-requirements.txt' file (No versions)
-	pip install -Ur dev-requirements.txt
-	make deps-generate-requirements
+	@pip install -Ur dev-requirements.txt
+	@make deps-generate-requirements
 
 deps-generate-requirements: ## Generate 'requirements-version.txt' file (With versions)
-	pip freeze | grep -v -- '^-e' > requirements.txt
+	@pip freeze | grep -v -- '^-e' > requirements.txt
 
 deps-install: ## Install dependencies 'requirements.txt' file (With versions)
-	pip install -Ur requirements.txt
+	@pip install -Ur requirements.txt
 
 deps-tree: ## Show dependency tree of packages
 	pipdeptree
@@ -39,18 +61,21 @@ deps-reset: ## Reset all requirements
 
 # *** QA ****
 
-lint: ## Lint and static-check code
+check-lint: ## Check lint and static code
 	flake8 --version
 	flake8 .
 	pylint --version
 	pylint src
 	pylint tests
 
-format-check: ## Format check code
+check-format: ## Check format code
 	black . --check --color --diff
 
-format: ## Format code
+check-format-apply: ## Apply format code
 	black .
+
+check-security: ## Check security code
+	bandit -r .
 
 
 
@@ -62,7 +87,7 @@ test: clean ## Run all the tests with all the supported python interpreters
 test-lint: ## Lint and static-check code
 	pytest --cache-clear --flake8
 
-coverage: ## Run tests with coverage
+test-coverage: ## Run tests with coverage
 	coverage erase
 	coverage run --include=src/* -m pytest -ra
 	coverage report -m
@@ -118,30 +143,30 @@ dist: clean dist-sdist dist-wheel ## Distribute source and wheel package
 # *** CLEAN ***
 
 clean-build: ## Remove elements for build
-	find . -name '__pycache__' -type d | xargs rm -fr
-	find . -name '.pytest_cache' -type d | xargs rm -fr
-	find . -name '*.pytest_cache' -type d | xargs rm -fr
-	find . -name '*.pyc' -type d | xargs rm -fr
+	@find . -name '__pycache__' -type d | xargs rm -fr
+	@find . -name '.pytest_cache' -type d | xargs rm -fr
+	@find . -name '*.pytest_cache' -type d | xargs rm -fr
+	@find . -name '*.pyc' -type d | xargs rm -fr
 
 clean-test: ## Remove test and coverage artifacts
-	rm -fr .tox/
-	rm -fr .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
+	@rm -fr .tox/
+	@rm -fr .coverage
+	@rm -fr htmlcov/
+	@rm -fr .pytest_cache
 
 clean-pyc: ## Remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+	@find . -name '*.pyc' -exec rm -f {} +
+	@find . -name '*.pyo' -exec rm -f {} +
+	@find . -name '*~' -exec rm -f {} +
+	@find . -name '__pycache__' -exec rm -fr {} +
 
 clean-distribute: ## Remove *.egg-info files and *.egg, build and dist directories
-	rm -vrf build/ 
-	rm -vrf dist/ 
-	rm -vrf ./*.tgz 
-	rm -vrf .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+	@rm -vrf build/ 
+	@rm -vrf dist/ 
+	@rm -vrf ./*.tgz 
+	@rm -vrf .eggs/
+	@find . -name '*.egg-info' -exec rm -fr {} +
+	@find . -name '*.egg' -exec rm -f {} +
 
 
 clean : clean-build clean-pyc clean-test clean-distribute  ## Remove all build, test, coverage and distribute Python artifacts

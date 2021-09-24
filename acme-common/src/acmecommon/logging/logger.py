@@ -34,19 +34,19 @@ def setup_logging(log_path, log_file_name, log_mode, log_main_level):
     # log_filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     now = datetime.datetime.now().strftime("%Y%m%d")
 
-    file_name = "{0}/{1}-{2}.log".format(log_path, log_file_name, now)
+    file_name = f"{log_path}/{log_file_name}-{now}.log"
     file_handler = logging.FileHandler(file_name)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(LOG_FILE_FORMATTER)
 
-    debug_file_name = "{0}/debug_{1}-{2}.log".format(log_path, log_file_name, now)
+    debug_file_name = f"{log_path}/debug_{log_file_name}-{now}.log"
     debug_file_handler = RotatingFileHandler(
         debug_file_name, maxBytes=10 ** 6, backupCount=5
     )
     debug_file_handler.setLevel(logging.DEBUG)
     debug_file_handler.setFormatter(LOG_FILE_FORMATTER)
 
-    error_file_name = "{0}/error_{1}-{2}.log".format(log_path, log_file_name, now)
+    error_file_name = f"{log_path}/error_{log_file_name}-{now}.log"
     errors_file_handler = RotatingFileHandler(
         error_file_name, maxBytes=10 ** 6, backupCount=5
     )

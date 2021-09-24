@@ -11,7 +11,6 @@ TEST_GOOGLE_URL = 'https://www.google.com'
 TEST_ELEMENT_SELECTOR = 'input[name=q]'
 
 
-@unittest.skip('Skipping_unit_tests')
 class TestDriverFactory(unittest.TestCase):
 
     def setUp(self):
@@ -23,6 +22,8 @@ class TestDriverFactory(unittest.TestCase):
 
         input_element = browser.find_elements_by_css_selector(TEST_ELEMENT_SELECTOR)
 
+        browser.quit()
+
         self.assertIsNotNone(input_element)
 
     def test_setup_driver_chrome_default(self):
@@ -31,6 +32,8 @@ class TestDriverFactory(unittest.TestCase):
 
         input_element = browser.find_elements_by_css_selector(TEST_ELEMENT_SELECTOR)
 
+        browser.quit()
+
         self.assertIsNotNone(input_element)
 
     def test_setup_driver_default(self):
@@ -38,6 +41,8 @@ class TestDriverFactory(unittest.TestCase):
         browser.get(TEST_GOOGLE_URL)
 
         input_element = browser.find_elements_by_css_selector(TEST_ELEMENT_SELECTOR)
+
+        browser.quit()
 
         self.assertIsNotNone(input_element)
 

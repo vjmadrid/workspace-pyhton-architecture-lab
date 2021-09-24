@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from src.acmeselenium.utils.cookie_util import CookieUtil
 
 
+@unittest.skip('Skipping_unit_tests')
 class TestCookieUtil(unittest.TestCase):
 
     TEST_URL = 'https://reddit.com'

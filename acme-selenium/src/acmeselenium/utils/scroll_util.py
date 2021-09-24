@@ -18,7 +18,7 @@ class ScrollUtil:
             "[SCROLL] [scroll_to] Scroll to  ... -> Parameters : %s", config_parameters
         )
 
-        driver.execute_script("window.scrollTo(0, {});".format(offset_pixels))
+        driver.execute_script(f"window.scrollTo(0, {offset_pixels});")
 
     @staticmethod
     def scroll_to_page_bottom(driver: WebDriver):
@@ -49,7 +49,7 @@ class ScrollUtil:
         driver.execute_script("return arguments[0].scrollIntoView();", element)
 
         # Compensate for the header
-        driver.execute_script("window.scrollBy(0, -{});".format(offset_pixels))
+        driver.execute_script(f"window.scrollBy(0, -{offset_pixels});")
 
         return element
 

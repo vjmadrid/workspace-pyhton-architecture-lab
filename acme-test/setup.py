@@ -3,10 +3,11 @@
 
 import io
 import os
-import sys
+# import sys
 
-from shutil import rmtree
-from setuptools import setup, find_packages, Command
+# from shutil import rmtree
+# from setuptools import setup, find_packages, Command
+from setuptools import setup, find_packages
 
 
 # Project path

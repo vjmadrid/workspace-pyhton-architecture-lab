@@ -87,7 +87,7 @@ test: clean ## Run all the tests with all the supported python interpreters
 test-lint: ## Lint and static-check code
 	pytest --cache-clear --flake8
 
-coverage: ## Run tests with coverage
+test-coverage: ## Run tests with coverage
 	coverage erase
 	coverage run --include=src/* -m pytest -ra
 	coverage report -m

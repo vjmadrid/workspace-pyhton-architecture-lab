@@ -16,8 +16,8 @@ class DriverFactory:
             return DriverFactory.get_driver_firefox(headless_mode)
         elif browser == 'chrome':
             return DriverFactory.get_driver_chrome(headless_mode)
-        else:
-            return None
+
+        return None
 
     @staticmethod
     def get_driver_chrome(headless_mode=False) -> EventFiringWebDriver:

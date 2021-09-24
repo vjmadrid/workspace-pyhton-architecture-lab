@@ -110,20 +110,14 @@ class DateUtil:
 
         if _remain_days:
             if _remain_hours:
-                _result = "%d일 %d시간" % (_remain_days, _remain_hours)
+                _result = f"{_remain_days} {_remain_hours}"
             else:
-                _result = "%d일 %d분" % (
-                    _remain_days,
-                    _remain_minutes if _remain_minutes else 1,
-                )
+                _result = f"{_remain_days} {_remain_minutes if _remain_minutes else 1}"
         elif _remain_hours:
-            _result = "%d시간 %d분" % (
-                _remain_hours,
-                _remain_minutes if _remain_minutes else 1,
-            )
+            _result = f"{_remain_hours} {_remain_minutes if _remain_minutes else 1}"
         elif _remain_minutes:
-            _result = "%d분" % _remain_minutes
+            _result = f"{_remain_minutes}"
         else:
-            _result = "1분 미만"
+            _result = "1"
 
         return _result
