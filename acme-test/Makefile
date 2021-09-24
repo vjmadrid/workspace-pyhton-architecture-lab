@@ -4,38 +4,46 @@
 
 SHELL = /bin/bash
 .DEFAULT_GOAL := help
-VIRTUAL_ENV_NAME := python-architecture
+VIRTUAL_ENV_NAME := venv-local
+
 
 
 # *** GENERAL ***
 
 upgrade: ## Upgrade Python modules : pip and setuptools
-	pip install -U pip setuptools wheel
+	@pip install -U pip setuptools wheel
 
 
 
 # *** Virtual Environment ***
-init-venv-local: ## Init virtual environment
-	python3 -m venv $(VIRTUAL_ENV_NAME)
-	sleep 5
-	source $(VIRTUAL_ENV_NAME)/bin/activate
 
-del-venv-local: ## Delete virtual environment
-	rm -rf ./$(VIRTUAL_ENV_NAME)
+venv-local-init: ## Init virtual environment
+	@python3 -m venv $(VIRTUAL_ENV_NAME)
+	@echo -e "Execute to activate : source $(VIRTUAL_ENV_NAME)/bin/activate"
+	@echo -e "Execute to deactivate : source deactivate"
+
+
+venv-local-del: ## Delete virtual environment
+	@rm -rf ./$(VIRTUAL_ENV_NAME)
+
+
+venv-local-prepare: ## Prepare virtual environment
+	@make upgrade
+	@make deps-install-dev
 
 
 
 # *** DEPENDENCIES ***
 
 deps-install-dev: ## Install dependencies 'dev-requirements.txt' file (No versions)
-	pip install -Ur dev-requirements.txt
-	make deps-generate-requirements
+	@pip install -Ur dev-requirements.txt
+	@make deps-generate-requirements
 
 deps-generate-requirements: ## Generate 'requirements-version.txt' file (With versions)
-	pip freeze | grep -v -- '^-e' > requirements.txt
+	@pip freeze | grep -v -- '^-e' > requirements.txt
 
 deps-install: ## Install dependencies 'requirements.txt' file (With versions)
-	pip install -Ur requirements.txt
+	@pip install -Ur requirements.txt
 
 deps-tree: ## Show dependency tree of packages
 	pipdeptree
@@ -53,18 +61,21 @@ deps-reset: ## Reset all requirements
 
 # *** QA ****
 
-lint: ## Lint and static-check code
+check-lint: ## Check lint and static code
 	flake8 --version
 	flake8 .
 	pylint --version
 	pylint src
 	pylint tests
 
-format-check: ## Format check code
+check-format: ## Check format code
 	black . --check --color --diff
 
-format: ## Format code
+check-format-apply: ## Apply format code
 	black .
+
+check-security: ## Check security code
+	bandit -r .
 
 
 

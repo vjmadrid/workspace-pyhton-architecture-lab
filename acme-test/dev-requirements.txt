@@ -12,4 +12,6 @@ pytest-asyncio
 pylint
 black
 
+bandit
+
 sphinx

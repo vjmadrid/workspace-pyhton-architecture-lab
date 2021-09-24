@@ -81,7 +81,7 @@ Third Party
   * Includes :
     * pytest
 
-* **pylint** [2.10.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation2](http://pylint.pycqa.org/en/latest/)
+* **pylint** [2.10.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation 2](http://pylint.pycqa.org/en/latest/)
 
   * Includes :
     * astroid
@@ -101,7 +101,15 @@ Third Party
     * tomli
     * typing-extensions
 
-* **Sphinx** [4.1.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation2](http://pylint.pycqa.org/en/latest/)
+* **bandit** [1.7.0] : Security oriented static analyser for python code -> [Pypi](https://pypi.org/project/bandit/) [Documentation](https://bandit.readthedocs.io/en/latest/)
+
+  * Includes :
+    * GitPython
+    * PyYAML
+    * six
+    * stevedore
+
+* **Sphinx** [4.1.2] : Framework checking programming errors, coding starndar, code smells, etc. -> [Pypi](https://pypi.org/project/pylint/) [Documentation](https://github.com/PyCQA/pylint) [Documentation 2](http://pylint.pycqa.org/en/latest/)
 
   * Includes :
     * alabaster
