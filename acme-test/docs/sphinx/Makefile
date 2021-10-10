@@ -2,13 +2,17 @@
 # Makefile for Sphinx documentation
 #
 
-# You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
+SOURCEDIR     = .
 
-# Internal variables.
+ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
+$(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
+endif
+
+# Internal variables
 PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
@@ -16,19 +20,6 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
-
-help:
-	@echo "  singlehtml to "
-	@echo "  pickle     to "
-	@echo "  json       to "
-	@echo "  htmlhelp   to "
-	@echo "  qthelp     to "
-	@echo "  devhelp    to "
-	@echo "  epub       to "
-	@echo "  latex      to "
-	@echo "  latexpdf   to "
-	@echo "  text       to "
-	@echo "  man        to "
 
 
 clean:
@@ -145,6 +136,8 @@ doctest: ## Run all doctests embedded in the documentation (if enabled)
 	@echo "Testing of doctests in the sources finished, look at the " \
 		"results in $(BUILDDIR)/doctest/output.txt."
 
+
+# *** HELP ***
 
 help: ## Show help message
 	@IFS=$$'\n' ; \

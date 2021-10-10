@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 
 from selenium.common.exceptions import StaleElementReferenceException
+
+logger = logging.getLogger(__name__)
 
 
 class OperationFindUtil:
@@ -32,6 +36,22 @@ class OperationFindUtil:
         """
         Reintenta hasta encontrar el elemento y realiza click sobre el
         """
+
+        config_parameters = (
+            '{"max_retries":'
+            + str(max_retries)
+            + ', "how":'
+            + str(how)
+            + ', "what":'
+            + str(what)
+            + ', "active_refresh":'
+            + str(active_refresh)
+            + "}"
+        )
+
+        logger.debug(
+            "[ACTION] [Operation] Retry Find ... -> Parameters : %s", config_parameters
+        )
 
         num_retries = 1
         while num_retries < max_retries:

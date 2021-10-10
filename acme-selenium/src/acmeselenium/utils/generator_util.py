@@ -74,8 +74,8 @@ class GeneratorUtil:
         if index < 0:
             return -1
 
-        keySelected = keys_list[index]
-        return keySelected
+        key_selected = keys_list[index]
+        return key_selected
 
     @staticmethod
     def generate_random_value_by_dict(value_dict, value_key):
@@ -89,5 +89,5 @@ class GeneratorUtil:
         if index < 0:
             return None
 
-        valueSelected = value_list[index]
-        return valueSelected
+        value_selected = value_list[index]
+        return value_selected

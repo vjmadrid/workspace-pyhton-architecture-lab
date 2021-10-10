@@ -96,9 +96,13 @@ test-coverage: ## Run tests with coverage
 
 # *** DOCS ***
 
-docs: ## Create the documentation
-	@echo "Build completed"
+docu: ## Documentation
+	@echo "Build Doc"
 	cd ./docs/sphinx && make html
+
+docs: ## Create the documentation
+	echo "Build completed"
+	
 
 
 
@@ -143,30 +147,30 @@ dist: clean dist-sdist dist-wheel ## Distribute source and wheel package
 # *** CLEAN ***
 
 clean-build: ## Remove elements for build
-	find . -name '__pycache__' -type d | xargs rm -fr
-	find . -name '.pytest_cache' -type d | xargs rm -fr
-	find . -name '*.pytest_cache' -type d | xargs rm -fr
-	find . -name '*.pyc' -type d | xargs rm -fr
+	@find . -name '__pycache__' -type d | xargs rm -fr
+	@find . -name '.pytest_cache' -type d | xargs rm -fr
+	@find . -name '*.pytest_cache' -type d | xargs rm -fr
+	@find . -name '*.pyc' -type d | xargs rm -fr
 
 clean-test: ## Remove test and coverage artifacts
-	rm -fr .tox/
-	rm -fr .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
+	@rm -fr .tox/
+	@rm -fr .coverage
+	@rm -fr htmlcov/
+	@rm -fr .pytest_cache
 
 clean-pyc: ## Remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
+	@find . -name '*.pyc' -exec rm -f {} +
+	@find . -name '*.pyo' -exec rm -f {} +
+	@find . -name '*~' -exec rm -f {} +
+	@find . -name '__pycache__' -exec rm -fr {} +
 
 clean-distribute: ## Remove *.egg-info files and *.egg, build and dist directories
-	rm -vrf build/ 
-	rm -vrf dist/ 
-	rm -vrf ./*.tgz 
-	rm -vrf .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
+	@rm -vrf build/ 
+	@rm -vrf dist/ 
+	@rm -vrf ./*.tgz 
+	@rm -vrf .eggs/
+	@find . -name '*.egg-info' -exec rm -fr {} +
+	@find . -name '*.egg' -exec rm -f {} +
 
 
 clean : clean-build clean-pyc clean-test clean-distribute  ## Remove all build, test, coverage and distribute Python artifacts

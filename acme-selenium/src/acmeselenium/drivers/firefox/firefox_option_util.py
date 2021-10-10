@@ -31,6 +31,7 @@ def default_firefox_options(options_dict):
     # Notifications
     firefox_options.set_preference("dom.webnotifications.enabled", False)
 
+    # Direct Download
     custom_download_path = options_dict['custom_download_path']
     if custom_download_path is not None:
 

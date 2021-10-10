@@ -5,6 +5,8 @@ from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriv
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
+from acmeselenium.constants import driver_constant
+
 from .web_driver_listener import WebDriverListener
 
 
@@ -12,9 +14,10 @@ class DriverFactory:
 
     @staticmethod
     def get_driver(browser, headless_mode=False) -> EventFiringWebDriver:
-        if browser == 'firefox':
+        if browser == driver_constant.BROWSER_TYPE_FIREFOX:
             return DriverFactory.get_driver_firefox(headless_mode)
-        elif browser == 'chrome':
+
+        if browser == driver_constant.BROWSER_TYPE_CHROME:
             return DriverFactory.get_driver_chrome(headless_mode)
 
         return None

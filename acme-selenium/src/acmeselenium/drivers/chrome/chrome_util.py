@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_CHROME_DRIVER_PATH = "/usr/local/bin/chromedriver"
+DEFAULT_CHROME_DRIVER_PATH_MAC_OS = "/usr/local/bin/chromedriver"
 
 
 def enable_download_headless(browser, download_dir):
