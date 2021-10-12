@@ -6,7 +6,6 @@ import os
 import time
 
 from acmeselenium.constants import driver_constant
-from acmeselenium.drivers.chrome import chrome_util, chrome_option_util
 from acmeselenium.drivers.driver_factory import DriverFactory
 from acmeselenium.utils import check_download_util
 from acmeselenium.supports import testing_download_support
