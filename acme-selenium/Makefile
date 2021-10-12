@@ -105,7 +105,7 @@ docs: ## Create the documentation
 # *** ALLURE ***
 allure-reports: ## Create Allure reports
 	pytest --alluredir=reports
-	
+
 
 
 

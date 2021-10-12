@@ -5,7 +5,7 @@ import os
 import time
 
 
-def is_file_downloaded(file_path):
+def is_file_downloaded_and_delete(file_path):
 
     while not os.path.exists(file_path):
         time.sleep(1)
