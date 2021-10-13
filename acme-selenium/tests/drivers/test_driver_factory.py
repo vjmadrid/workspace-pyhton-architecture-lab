@@ -28,7 +28,7 @@ class TestDriverFactory(unittest.TestCase):
     # *** Firefox ***
 
     def test_get_driver_firefox(self):
-        browser = DriverFactory.get_driver_firefox(TEST_OPTIONS_DICT)
+        browser = DriverFactory.get_driver_firefox(None, TEST_OPTIONS_DICT)
         browser.get(testing_google_support.TEST_GOOGLE_URL)
 
         input_text_search = browser.find_elements_by_css_selector(testing_google_support.INPUT_TEXT_SEARCH)
@@ -50,7 +50,7 @@ class TestDriverFactory(unittest.TestCase):
     # *** Chrome ***
 
     def test_setup_driver_chrome_default(self):
-        browser = DriverFactory.get_driver_chrome(TEST_OPTIONS_DICT)
+        browser = DriverFactory.get_driver_chrome(None, TEST_OPTIONS_DICT)
         browser.get(testing_google_support.TEST_GOOGLE_URL)
 
         input_text_search = browser.find_elements_by_css_selector(testing_google_support.INPUT_TEXT_SEARCH)
