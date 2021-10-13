@@ -4,59 +4,76 @@
 import os
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+
+from acmeselenium.constants import driver_constant
 
 
-DEFAULT_DOWNLOAD_FOLDER = "/Users/vjmadrid/Downloads/"
-SAVE_TO_DISK_FILE_TYPE = 'audio/mp3'
+def default_chrome_options():
+    """Performs the default configuration of a Chrome WebDriver
+
+    :return: Default configuration options for a Chrome WebDriver
+    :rtype: Options
+    """
+
+    options = webdriver.ChromeOptions()
+
+    options.add_argument("--headless")
+    options.add_argument('--no-sandbox')
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-notifications")
+    options.add_argument("disable-infobars")
+
+    return options
 
 
-'''
-example_options_dict = {
-    'headless': False,
-    'custom_download_path': 'xxx',
-    'file_type': 'audio/mp3'
-}
-'''
+def custom_chrome_options(options_dict):
+    """Performs the custom configuration of a Chrome WebDriver
 
+    Example
+        example_options_dict = {
+            'headless': False,
+            'download_path': 'xxx',
+            'file_type': 'audio/mp3'
+        }
 
-def default_chrome_options_min():
-    chrome_options = Options()
+    :param options_dict: Dictionary with all parameters of this method
+    :type options_dict: dict
 
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument('--no-sandbox')
+    :raises ValueError: Invalid parameter
 
-    return chrome_options
-
-
-def default_chrome_options(options_dict):
+    :return: Custom configuration options for a Chrome WebDriver
+    :rtype: Options
+    """
 
     if options_dict is None:
-        raise ValueError('Options invalid')
+        raise ValueError('options_dict is an invalid parameter')
 
-    chrome_options = webdriver.ChromeOptions()
-    # chrome_options.headless = options_dict['headless']
+    options = webdriver.ChromeOptions()
 
-    if options_dict['headless']:
-        chrome_options.add_argument("--headless")
+    # Configuration Default
+    options.add_argument('--no-sandbox')
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-notifications")
+    options.add_argument("disable-infobars")
 
-    chrome_options.add_argument('--no-sandbox')
+    # Configuration Headless
+    if driver_constant.HEADLESS_KEY in options_dict:
+        if options_dict['headless']:
+            options.add_argument("--headless")
+        else:
+            options.add_argument('--start-maximized')
+            options.add_argument('--window-size=1920,1080')
+    else:
+        options.add_argument('--start-maximized')
+        options.add_argument('--window-size=1920,1080')
 
-    # chrome_options.add_argument('--disable-download-notification')
-    # chrome_options.add_argument('--start-maximized')
-    #  chrome_options.add_argument("--disable-extensions")
-    # chrome_options.add_argument("--window-size=1920x1080")
-    # chrome_options.add_argument("--disable-notifications")
-    # chrome_options.add_argument('--verbose')
-    # chrome_options.add_argument('--disable-gpu')
-    # chrome_options.add_argument('--disable-software-rasterizer')
-
-    custom_download_path = options_dict['custom_download_path']
-    if custom_download_path is not None:
+    # Configuracion Download
+    if driver_constant.DOWNLOAD_PATH_KEY in options_dict:
+        download_path = options_dict[driver_constant.DOWNLOAD_PATH_KEY]
 
         # Create if not exist
-        if not os.path.isdir(custom_download_path):
-            os.makedirs(custom_download_path)
+        if not os.path.isdir(download_path):
+            os.makedirs(download_path)
 
         prefs = {}
         prefs["profile.default_content_settings.popups"] = 0
@@ -64,8 +81,8 @@ def default_chrome_options(options_dict):
         prefs["download.directory_upgrade"] = True
         prefs["safebrowsing_for_trusted_sources_enabled"] = False
         prefs["safebrowsing.enabled"] = False
-        prefs["download.default_directory"] = custom_download_path
+        prefs["download.default_directory"] = download_path
 
-        chrome_options.add_experimental_option("prefs", prefs)
+        options.add_experimental_option("prefs", prefs)
 
-    return chrome_options
+    return options

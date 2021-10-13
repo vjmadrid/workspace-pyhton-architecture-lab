@@ -16,8 +16,8 @@ DEFAULT_SLEEP = 3
 TEST_DEFAULT_DOWNLOAD_FOLDER = os.path.dirname(os.path.dirname(__file__)) + "/firefox"
 TEST_EXAMPLE_FILE_PATH = TEST_DEFAULT_DOWNLOAD_FOLDER + "/" + testing_download_support.TEST_EXAMPLE_FILE
 TEST_OPTIONS_DICT = {
-    'headless': True,
-    'custom_download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
+    'headless': False,
+    'download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
     'file_types': 'text/plain'
 }
 
@@ -27,8 +27,8 @@ class TestFirefoxDownload(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_file_download_by_gecko_with_default_firefox_options_min(self):
-        options = firefox_option_util.default_firefox_options_min(TEST_DEFAULT_DOWNLOAD_FOLDER)
+    def test_file_download_by_gecko_with_default_firefox_options(self):
+        options = firefox_option_util.default_firefox_options(TEST_DEFAULT_DOWNLOAD_FOLDER)
         browser = firefox_util.setup_driver_firefox_gecko(options)
 
         testing_download_support.action_generate_and_download_file(browser)
@@ -38,8 +38,8 @@ class TestFirefoxDownload(unittest.TestCase):
         self.assertTrue(os.path.exists(TEST_EXAMPLE_FILE_PATH))
         self.assertTrue(check_download_util.is_file_downloaded_and_delete(TEST_EXAMPLE_FILE_PATH))
 
-    def test_file_download_by_gecko_with_default_firefox_options_custom(self):
-        options = firefox_option_util.default_firefox_options(TEST_OPTIONS_DICT)
+    def test_file_download_by_gecko_with_custom_firefox_options(self):
+        options = firefox_option_util.custom_firefox_options(TEST_OPTIONS_DICT)
         browser = firefox_util.setup_driver_firefox_gecko(options)
 
         testing_download_support.action_generate_and_download_file(browser)

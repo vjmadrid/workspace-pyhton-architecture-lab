@@ -6,8 +6,12 @@ BROWSER_TYPE_FIREFOX = "firefox"
 
 DEFAULT_DOWNLOAD_FOLDER = "~/Downloads/"
 
+DEFAULT_CHROME_DRIVER_PATH_MAC_OS = "/usr/local/bin/chromedriver"
+
+
 DEFAULT_SAVE_TO_DISK_FILE_TYPES = "audio/mp3, text/plain"
 
+BROWSER_TYPE_KEY = "browser_type"
 HEADLESS_KEY = "headless"
-CUSTOM_DOWNLOAD_PATH_KEY = "custom_download_path"
+DOWNLOAD_PATH_KEY = "download_path"
 FILE_TYPES_KEY = "file_types"

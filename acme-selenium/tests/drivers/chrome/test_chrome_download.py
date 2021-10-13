@@ -16,8 +16,8 @@ DEFAULT_SLEEP = 3
 TEST_DEFAULT_DOWNLOAD_FOLDER = os.path.dirname(os.path.dirname(__file__)) + "/chrome"
 TEST_EXAMPLE_FILE_PATH = TEST_DEFAULT_DOWNLOAD_FOLDER + "/" + testing_download_support.TEST_EXAMPLE_FILE
 TEST_OPTIONS_DICT = {
-    'headless': True,
-    'custom_download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
+    'headless': False,
+    'download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
     'file_types': 'text/plain'
 }
 
@@ -27,8 +27,8 @@ class TestChromeDownload(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_file_download_by_chromedriver_with_default_chrome_options_min(self):
-        options = chrome_option_util.default_chrome_options_min()
+    def test_file_download_by_chromedriver_with_default_chrome_options(self):
+        options = chrome_option_util.default_chrome_options()
         browser = chrome_util.setup_driver_chrome_chromedriver(options)
         chrome_util.enable_download_headless(browser, TEST_DEFAULT_DOWNLOAD_FOLDER)
 
@@ -39,8 +39,8 @@ class TestChromeDownload(unittest.TestCase):
         self.assertTrue(os.path.exists(TEST_EXAMPLE_FILE_PATH))
         self.assertTrue(check_download_util.is_file_downloaded_and_delete(TEST_EXAMPLE_FILE_PATH))
 
-    def test_file_download_by_chromedriver_with_default_chrome_options_custom(self):
-        options = chrome_option_util.default_chrome_options(TEST_OPTIONS_DICT)
+    def test_file_download_by_chromedriver_with_custom_chrome_options(self):
+        options = chrome_option_util.custom_chrome_options(TEST_OPTIONS_DICT)
         browser = chrome_util.setup_driver_chrome_chromedriver(options)
 
         testing_download_support.action_generate_and_download_file(browser)

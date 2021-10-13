@@ -5,6 +5,7 @@ import unittest
 
 
 from selenium import webdriver
+from acmeselenium.constants import driver_constant
 from acmeselenium.drivers.chrome import chrome_util
 from acmeselenium.supports import testing_google_support
 
@@ -36,7 +37,7 @@ class TestChromeUtil(unittest.TestCase):
         self.assertIsNotNone(input_element)
 
     def test_setup_driver_chrome_default(self):
-        browser = chrome_util.setup_driver_chrome(chrome_util.DEFAULT_CHROME_DRIVER_PATH_MAC_OS, None)
+        browser = chrome_util.setup_driver_chrome(driver_constant.DEFAULT_CHROME_DRIVER_PATH_MAC_OS, None)
         browser.get(testing_google_support.TEST_GOOGLE_URL)
 
         input_text_search = browser.find_elements_by_css_selector(testing_google_support.INPUT_TEXT_SEARCH)
@@ -46,7 +47,7 @@ class TestChromeUtil(unittest.TestCase):
         self.assertIsNotNone(input_text_search)
 
     def test_setup_driver_chrome_with_options(self):
-        browser = chrome_util.setup_driver_chrome(chrome_util.DEFAULT_CHROME_DRIVER_PATH_MAC_OS, self.chrome_options)
+        browser = chrome_util.setup_driver_chrome(driver_constant.DEFAULT_CHROME_DRIVER_PATH_MAC_OS, self.chrome_options)
         browser.get(testing_google_support.TEST_GOOGLE_URL)
 
         input_text_search = browser.find_elements_by_css_selector(testing_google_support.INPUT_TEXT_SEARCH)
