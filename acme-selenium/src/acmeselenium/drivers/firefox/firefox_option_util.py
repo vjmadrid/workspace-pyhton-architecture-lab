@@ -88,7 +88,7 @@ def custom_firefox_options(options_dict):
     """
 
     if options_dict is None:
-        raise ValueError('Options invalid')
+        raise ValueError('options_dict is an invalid parameter')
 
     options = webdriver.FirefoxOptions()
 
