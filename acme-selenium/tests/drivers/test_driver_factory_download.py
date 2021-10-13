@@ -17,7 +17,7 @@ TEST_DEFAULT_DOWNLOAD_FOLDER = os.path.dirname(os.path.dirname(__file__))
 TEST_EXAMPLE_FILE_PATH = TEST_DEFAULT_DOWNLOAD_FOLDER + "/" + testing_download_support.TEST_EXAMPLE_FILE
 TEST_OPTIONS_DICT = {
     'headless': False,
-    'custom_download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
+    'download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
     'file_types': 'text/plain'
 }
 

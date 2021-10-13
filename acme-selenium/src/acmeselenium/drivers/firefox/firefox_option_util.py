@@ -94,7 +94,7 @@ def custom_firefox_options(options_dict):
 
     # Configuration Headless
     if driver_constant.HEADLESS_KEY in options_dict:
-        if options_dict['headless']:
+        if options_dict[driver_constant.HEADLESS_KEY]:
             options.headless = options_dict[driver_constant.HEADLESS_KEY]
 
     # Configuration Notifications
