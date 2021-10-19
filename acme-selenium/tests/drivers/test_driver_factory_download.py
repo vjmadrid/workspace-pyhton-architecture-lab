@@ -15,10 +15,19 @@ DEFAULT_SLEEP = 3
 
 TEST_DEFAULT_DOWNLOAD_FOLDER = os.path.dirname(os.path.dirname(__file__))
 TEST_EXAMPLE_FILE_PATH = TEST_DEFAULT_DOWNLOAD_FOLDER + "/" + testing_download_support.TEST_EXAMPLE_FILE
-TEST_OPTIONS_DICT = {
-    'headless': False,
-    'download_path': TEST_DEFAULT_DOWNLOAD_FOLDER,
-    'file_types': 'text/plain'
+TEST_OPTIONS_FIREFOX_DICT = {
+    driver_constant.BROWSER_TYPE_KEY: 'firefox',
+    driver_constant.EXECUTABLE_PATH_KEY: None,
+    driver_constant.HEADLESS_KEY: True,
+    driver_constant.DOWNLOAD_PATH_KEY: TEST_DEFAULT_DOWNLOAD_FOLDER,
+    driver_constant.FILE_TYPES_KEY: 'text/plain'
+}
+TEST_OPTIONS_CHROME_DICT = {
+    driver_constant.BROWSER_TYPE_KEY: 'chrome',
+    driver_constant.EXECUTABLE_PATH_KEY: None,
+    driver_constant.HEADLESS_KEY: True,
+    driver_constant.DOWNLOAD_PATH_KEY: TEST_DEFAULT_DOWNLOAD_FOLDER,
+    driver_constant.FILE_TYPES_KEY: 'text/plain'
 }
 
 
@@ -30,7 +39,7 @@ class TestDriverFactoryDownload(unittest.TestCase):
     # *** Firefox ***
 
     def test_get_driver_firefox_download(self):
-        browser = DriverFactory.get_driver(driver_constant.BROWSER_TYPE_FIREFOX, TEST_OPTIONS_DICT)
+        browser = DriverFactory.get_driver(TEST_OPTIONS_FIREFOX_DICT)
 
         testing_download_support.action_generate_and_download_file(browser)
         time.sleep(DEFAULT_SLEEP)
@@ -42,7 +51,7 @@ class TestDriverFactoryDownload(unittest.TestCase):
     # *** Chrome ***
 
     def test_get_driver_chrome_download(self):
-        browser = DriverFactory.get_driver(driver_constant.BROWSER_TYPE_CHROME, TEST_OPTIONS_DICT)
+        browser = DriverFactory.get_driver(TEST_OPTIONS_CHROME_DICT)
 
         testing_download_support.action_generate_and_download_file(browser)
         time.sleep(DEFAULT_SLEEP)

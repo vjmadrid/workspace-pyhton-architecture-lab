@@ -31,6 +31,7 @@ def custom_chrome_options(options_dict):
 
     Example
         example_options_dict = {
+            'user_data_path': xxx,      # Optional
             'headless': False,
             'download_path': 'xxx',
             'file_type': 'audio/mp3'
@@ -67,7 +68,7 @@ def custom_chrome_options(options_dict):
         options.add_argument('--start-maximized')
         options.add_argument('--window-size=1920,1080')
 
-    # Configuracion Download
+    # Configuration Download
     if driver_constant.DOWNLOAD_PATH_KEY in options_dict:
         download_path = options_dict[driver_constant.DOWNLOAD_PATH_KEY]
 
@@ -84,5 +85,11 @@ def custom_chrome_options(options_dict):
         prefs["download.default_directory"] = download_path
 
         options.add_experimental_option("prefs", prefs)
+
+    # Configuration User Data
+    if driver_constant.USER_DATA_PATH_KEY in options_dict:
+        user_data_path = options_dict[driver_constant.USER_DATA_PATH_KEY]
+        if user_data_path:
+            options.add_argument(f"--user-data-dir={user_data_path}")
 
     return options

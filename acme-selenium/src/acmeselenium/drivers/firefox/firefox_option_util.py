@@ -3,7 +3,6 @@
 
 import os
 
-
 from selenium import webdriver
 
 from acmeselenium.constants import driver_constant
@@ -73,6 +72,7 @@ def custom_firefox_options(options_dict):
 
     Example
         example_options_dict = {
+            'user_data_path': xxx,      # Optional
             'headless': False,
             'download_path': 'xxx',
             'file_type': 'audio/mp3'
@@ -108,5 +108,11 @@ def custom_firefox_options(options_dict):
             action_direct_download(options, download_path, options_dict[driver_constant.FILE_TYPES_KEY])
         else:
             action_direct_download(options, download_path, driver_constant.DEFAULT_SAVE_TO_DISK_FILE_TYPES)
+
+    # Configuration User Data
+    if driver_constant.USER_DATA_PATH_KEY in options_dict:
+        user_data_path = options_dict[driver_constant.USER_DATA_PATH_KEY]
+        if user_data_path:
+            options.profile = user_data_path
 
     return options
