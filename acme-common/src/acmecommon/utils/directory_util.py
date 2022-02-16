@@ -8,11 +8,13 @@ import glob
 
 class DirectoryUtil:
 
-    def create_directory(self, directory_path):
+    @staticmethod
+    def create_directory(directory_path):
         if (not os.path.exists(directory_path)) and (os.path.isdir(directory_path)):
             os.makedirs(directory_path)
 
-    def change_directory(self, directory_path):
+    @staticmethod
+    def change_directory(directory_path):
         result = False
 
         if os.path.exists(directory_path):
@@ -21,7 +23,8 @@ class DirectoryUtil:
 
         return result
 
-    def is_empty_directory(self, directory_path):
+    @staticmethod
+    def is_empty_directory(directory_path):
         result = False
 
         if os.path.exists(directory_path) and os.path.isdir(directory_path):
@@ -29,7 +32,8 @@ class DirectoryUtil:
                 result = True
         return result
 
-    def get_files_directory(self, directory_path):
+    @staticmethod
+    def get_files_directory(directory_path):
         file_directory = os.listdir(directory_path)
         result_list = []
 
@@ -37,13 +41,14 @@ class DirectoryUtil:
             full_path = os.path.join(directory_path, entry)
 
             if os.path.isdir(full_path):
-                result_list = result_list + self.get_files_directory(full_path)
+                result_list = result_list + DirectoryUtil.get_files_directory(full_path)
             else:
                 result_list.append(full_path)
 
         return result_list
 
-    def get_files_directory_list(self, directory_path):
+    @staticmethod
+    def get_files_directory_list( directory_path):
         result_list = []
 
         for (dir_path, dir_names, file_names) in os.walk(directory_path):
@@ -51,7 +56,8 @@ class DirectoryUtil:
 
         return result_list
 
-    def get_empty_directories_list(self, directory_path):
+    @staticmethod
+    def get_empty_directories_list(directory_path):
         result_list = []
 
         for (dir_path, dir_names, file_names) in os.walk(directory_path):
@@ -60,7 +66,8 @@ class DirectoryUtil:
 
         return result_list
 
-    def move_all_files_in_dir(self, src_dir_path, dst_dir_path):
+    @staticmethod
+    def move_all_files_in_dir(src_dir_path, dst_dir_path):
         result = False
         if os.path.isdir(src_dir_path) and os.path.isdir(dst_dir_path):
             for file_path in glob.glob(src_dir_path + "\\*"):
@@ -70,8 +77,27 @@ class DirectoryUtil:
 
         return result
 
-    def move_file_to_dir(self, src_file_path, dst_dir_path):
+    @staticmethod
+    def move_file_to_dir(src_file_path, dst_dir_path):
         if not os.path.isdir(dst_dir_path):
             os.makedirs(dst_dir_path)
 
         shutil.move(src_file_path, dst_dir_path)
+
+    @staticmethod
+    def remove_content_in_dir(directory_path):
+        result = False
+
+        if os.path.exists(directory_path) and os.path.isdir(directory_path):
+            for filename in os.listdir(directory_path):
+                file_path = os.path.join(directory_path, filename)
+                try:
+                    if os.path.isfile(file_path) or os.path.islink(file_path):
+                        os.unlink(file_path)
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                    result = True
+                except Exception as e:
+                    print('Failed to delete %s. Reason: %s' % (file_path, e))
+                
+        return result

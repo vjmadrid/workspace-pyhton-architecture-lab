@@ -19,12 +19,12 @@ class TestDirectoryUtil(unittest.TestCase):
         pass
 
     def test_get_files_directory(self):
-        result_list = DirectoryUtil().get_files_directory(self.test_current_path)
+        result_list = DirectoryUtil.get_files_directory(self.test_current_path)
 
         self.assertEqual(17, len(result_list))
 
     def test_get_files_directory_list(self):
-        result_list = DirectoryUtil().get_files_directory_list(self.test_current_path)
+        result_list = DirectoryUtil.get_files_directory_list(self.test_current_path)
 
         # for elem in result_list:
         #    print(elem)

@@ -108,7 +108,7 @@ class Logger:
             NotificationHandler = None
         else:
             enable_notifications = params_dict[logger_constant.ENABLE_NOTIFICATIONS_KEY]
-            self.NotificationHandler = NotificationHandler(enable_notifications)
+            self.NotificationHandler = None # NotificationHandler(enable_notifications)
 
 
     def log(self, message, level="info", notification=False):
@@ -122,8 +122,8 @@ class Logger:
         elif level == "debug":
             self.logger.debug(message)
 
-        if notification and self.NotificationHandler.enabled:
-            self.NotificationHandler.send_notification(str(message))
+        # if notification and self.NotificationHandler.enabled:
+        #     self.NotificationHandler.send_notification(str(message))
 
     def info(self, message, notification=True):
         self.log(message, "info", notification)

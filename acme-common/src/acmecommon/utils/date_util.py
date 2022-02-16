@@ -10,7 +10,8 @@ from acmecommon.utils.number_util import NumberUtil
 
 class DateUtil:
 
-    def is_valid_date(self, birth_date):
+    @staticmethod
+    def is_valid_date(birth_date):
         """ Check is a valid date
 
         Usage::
@@ -41,7 +42,8 @@ class DateUtil:
 
         return True
 
-    def get_first_date_of_next_month(self, base_date=datetime.datetime.today()):
+    @staticmethod
+    def get_first_date_of_next_month(base_date=datetime.datetime.today()):
         """
         Usage:
             DateUtil().get_first_date_of_next_month()  # if today is 2016.2.24 then return datetime.date(2016, 3, 1)
@@ -54,7 +56,8 @@ class DateUtil:
 
         return datetime.date(base_date.year, base_date.month + 1, 1)
 
-    def get_age_band(self, year):
+    @staticmethod
+    def get_age_band(year):
         """
         Usage:
         Args:
@@ -64,7 +67,8 @@ class DateUtil:
             return None
         return NumberUtil(datetime.datetime.today().year - int(year)).round_down(1)
 
-    def month_delta(self, date_1, date_2):
+    @staticmethod
+    def month_delta(date_1, date_2):
         delta = 0
         while True:
             mdays = monthrange(date_1.year, date_1.month)[1]
@@ -75,7 +79,8 @@ class DateUtil:
                 break
         return delta
 
-    def get_timestamp_diff_formatted(self, big_timestamp, small_timestamp):
+    @staticmethod
+    def get_timestamp_diff_formatted(big_timestamp, small_timestamp):
         if big_timestamp and isinstance(big_timestamp, int):
             _big_date = datetime.datetime.fromtimestamp(big_timestamp)
         else:
@@ -85,9 +90,10 @@ class DateUtil:
         else:
             _small_date = datetime.datetime.now()
 
-        return self.get_datetime_diff_formatted(_big_date, _small_date)
+        return DateUtil.get_datetime_diff_formatted(_big_date, _small_date)
 
-    def get_datetime_diff_formatted(self, big_date, small_date):
+    @staticmethod
+    def get_datetime_diff_formatted(big_date, small_date):
         if big_date and isinstance(big_date, datetime.datetime):
             _big_date = big_date
         else:
