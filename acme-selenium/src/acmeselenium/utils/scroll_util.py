@@ -15,30 +15,49 @@ class ScrollUtil:
 
     @staticmethod
     def scroll_to(driver: WebDriver, offset_pixels: str):
-        config_parameters = '{ "offset_pixels":' + str(offset_pixels) + "}"
-        logger.info(
-            "[SCROLL] [scroll_to] Scroll to  ... -> Parameters : %s", config_parameters
-        )
+        """Scrolls page to xxx
+
+        :param driver: Browser used
+        :type driver: WebDriver
+
+        :param offset_pixels: Element to be focused on
+        :type offset_pixels: str
+
+        :return: N/A
+        :rtype: N/A
+        """
+
+        ValidationUtil.is_driver_valid_with_exception(driver)
+        ValidationUtil.is_str_valid_with_exception(offset_pixels)
+
+        logger.debug("[SCROLL] Scroll to  ... -> offset_pixels : %s", str(offset_pixels))
 
         driver.execute_script(f"window.scrollTo(0, {offset_pixels});")
 
     @staticmethod
-    def scroll_into_view(driver: WebDriver, element, offset_pixels=0):
-        """Scrolls page to element using JS
-        Args:
-            driver (base.CustomDriver)
-            element (WebElement)
-            offset_pixels
+    def scroll_into_view(driver: WebDriver, element, offset_pixels_header=0):
+        """Scrolls into view
+
+        :param driver: Browser used
+        :type driver: WebDriver
+
+        :param element: Element to be focused on
+        :type element: WebElement
+
+        :param offset_pixels_header: Pixel to compensate for the header
+        :type offset_pixels_header: int
+
+        :return: Element to be focused on
+        :rtype: WebElement
         """
-        config_parameters = '{ "offset_pixels":' + str(offset_pixels) + "}"
-        logger.info(
-            "[SCROLL] [scroll_into_view] Scroll into view  ... -> Parameters : %s", config_parameters
-        )
+
+        ValidationUtil.is_driver_valid_with_exception(driver)
+        logger.debug("[SCROLL] Scroll into view  ...", str(offset_pixels_header))
 
         driver.execute_script("return arguments[0].scrollIntoView();", element)
 
         # Compensate for the header
-        driver.execute_script(f"window.scrollBy(0, -{offset_pixels});")
+        driver.execute_script(f"window.scrollBy(0, -{offset_pixels_header});")
 
         return element
 
@@ -52,13 +71,15 @@ class ScrollUtil:
         :param element: Element to be focused on
         :type element: WebElement
 
-        :return: N/A
-        :rtype: N/A
+        :return: Element to be focused on
+        :rtype: WebElement
         """
         ValidationUtil.is_driver_valid_with_exception(driver)
         logger.debug("[SCROLL] Scroll by element ...")
 
         driver.execute_script("return arguments[0].scrollIntoView(true);", element)
+
+        return element
 
     @staticmethod
     def scroll_by_element_xpath(driver: WebDriver, xpath_element: str):
@@ -80,6 +101,8 @@ class ScrollUtil:
 
         element = driver.find_element_by_xpath(xpath_element)
         driver.execute_script("return arguments[0].scrollIntoView(true);", element)
+
+        return element
 
     @staticmethod
     def scroll_to_the_end(driver: WebDriver):
@@ -119,4 +142,4 @@ class ScrollUtil:
         ValidationUtil.is_driver_valid_with_exception(driver)
         logger.debug("[SCROLL] Scroll to Page Botton ...")
 
-        ScrollUtil.scroll_to(driver, "document.body.scrollHeight)")
+        ScrollUtil.scroll_to(driver, "document.body.scrollHeight")

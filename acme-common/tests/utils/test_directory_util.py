@@ -21,7 +21,7 @@ class TestDirectoryUtil(unittest.TestCase):
     def test_get_files_directory(self):
         result_list = DirectoryUtil().get_files_directory(self.test_current_path)
 
-        self.assertEqual(15, len(result_list))
+        self.assertEqual(17, len(result_list))
 
     def test_get_files_directory_list(self):
         result_list = DirectoryUtil().get_files_directory_list(self.test_current_path)
@@ -29,7 +29,7 @@ class TestDirectoryUtil(unittest.TestCase):
         # for elem in result_list:
         #    print(elem)
 
-        self.assertEqual(15, len(result_list))
+        self.assertEqual(17, len(result_list))
 
 
 if __name__ == "__main__":

@@ -3,88 +3,136 @@
 
 import logging
 import datetime
-import os
 from logging.handlers import RotatingFileHandler
 
-import yaml
+
+from . import logger_constant
+from src.acmecommon.utils.validation_util import ValidationUtil
+from src.acmecommon.notifications.notification import NotificationHandler
 
 
-loggers = {}
+class Logger:
+
+    logger = None
+    NotificationHandler = None
+
+    def __init__(self, params_dict):
+        """
+
+        Example
+            example_params_dict = {
+                'logging_service_name': xxx,
+                'logging_path': xxx,
+                'logging_file_name': xxx,
+                'logging_main_level': 'xxx',
+                'enable_console': 'xxx',
+                'enable_notifications': 'xxx'
+            }
+
+        :param params_dict: Dictionary with all parameters of this method
+        :type params_dict: dict
+
+        :raises ValueError: Invalid parameter
+
+        :return: N/A
+        :rtype: N/A
+        """
+
+        ValidationUtil.is_dict_valid_with_exception(params_dict)
+
+        logging_path = params_dict[logger_constant.LOGGING_PATH_KEY]
+        logging_file_name = params_dict[logger_constant.LOGGING_FILE_NAME_KEY]
+
+        enable_console = params_dict[logger_constant.ENABLE_CONSOLE_KEY]
+
+        # General setup
+        LOGGING_FILE_FORMATTER = logging.Formatter(logger_constant.LOGGING_FILE_FORMATTER_PATTERN_DEFAULT)
+        LOGGING_CONSOLE_FORMATTER = logging.Formatter(logger_constant.LOGGING_CONSOLE_FORMATTER_PATTERN_DEFAULT)
+        now = datetime.datetime.now().strftime("%Y%m%d")
+
+        # Logger setup
+        if logger_constant.LOGGING_SERVICE_NAME_KEY not in params_dict:
+            logging_service_name = ""
+            logger_name = ""
+            self.logger = logging.getLogger()
+        else:
+            logging_service_name = params_dict[logger_constant.LOGGING_SERVICE_NAME_KEY]
+            logger_name = f"{logging_service_name}_logger"
+            self.logger = logging.getLogger(logger_name)
+
+        # Logging Level setup
+        if logger_constant.LOGGING_MAIN_LEVEL_KEY not in params_dict:
+            self.logger.setLevel(logging.INFO)
+        else:
+            logging_main_level = params_dict[logger_constant.LOGGING_MAIN_LEVEL_KEY]
+            self.logger.setLevel(logging_main_level)
+
+        self.logger.propagate = False
+
+        # Loggging to file setup
+
+        # * Info Logging to file
+        file_name = f"{logging_path}/{logging_file_name}-{now}.log"
+        file_handler = logging.FileHandler(file_name)
+        file_handler.setLevel(logging.INFO)
+        file_handler.setFormatter(LOGGING_FILE_FORMATTER)
+        self.logger.addHandler(file_handler)
+
+        # * Debug Logging to file
+        debug_file_name = f"{logging_path}/debug_{logging_file_name}-{now}.log"
+        debug_file_handler = RotatingFileHandler(
+            debug_file_name, maxBytes=10 ** 6, backupCount=5
+        )
+        debug_file_handler.setLevel(logging.DEBUG)
+        debug_file_handler.setFormatter(LOGGING_FILE_FORMATTER)
+        self.logger.addHandler(debug_file_handler)
+
+        # Error Logging to file
+        error_file_name = f"{logging_path}/error_{logging_file_name}-{now}.log"
+        errors_file_handler = RotatingFileHandler(
+            error_file_name, maxBytes=10 ** 6, backupCount=5
+        )
+        errors_file_handler.setLevel(logging.WARNING)
+        errors_file_handler.setFormatter(LOGGING_FILE_FORMATTER)
+        self.logger.addHandler(errors_file_handler)
+
+        # Logging to console
+        if enable_console:
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.DEBUG)
+            console_handler.setFormatter(LOGGING_CONSOLE_FORMATTER)
+            self.logger.addHandler(console_handler)
+
+        # Notification handler config
+        if logger_constant.ENABLE_NOTIFICATIONS_KEY not in params_dict:
+            NotificationHandler = None
+        else:
+            enable_notifications = params_dict[logger_constant.ENABLE_NOTIFICATIONS_KEY]
+            self.NotificationHandler = NotificationHandler(enable_notifications)
 
 
-LOG_FILE_FORMATTER = logging.Formatter(
-    "[%(levelname)s]:%(asctime)s:%(module)s:%(lineno)d:%(name)s:%(message)s"
-)
-LOG_CONSOLE_FORMATTER = logging.Formatter("[%(levelname)s]: %(message)s")
+    def log(self, message, level="info", notification=False):
 
-LOG_YAML_CONFIG_FILE_DEFAULT = 'logging.yaml'
+        if level == "info":
+            self.logger.info(message)
+        elif level == "warning":
+            self.logger.warning(message)
+        elif level == "error":
+            self.logger.error(message)
+        elif level == "debug":
+            self.logger.debug(message)
 
+        if notification and self.NotificationHandler.enabled:
+            self.NotificationHandler.send_notification(str(message))
 
-def setup_logging(log_path, log_file_name, log_mode, log_main_level):
+    def info(self, message, notification=True):
+        self.log(message, "info", notification)
 
-    # Option : Load Environment Var
-    # log_level = os.getenv("SONG-SCRAPER_LOG_LEVEL")
-    # if log_level:
-    #   level = int(log_level)
-    #   logger.setLevel(log_main_level)
+    def warning(self, message, notification=True):
+        self.log(message, "warning", notification)
 
-    logger = logging.getLogger()
-    logger.setLevel(log_main_level)
+    def error(self, message, notification=True):
+        self.log(message, "error", notification)
 
-    # log_filename = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    now = datetime.datetime.now().strftime("%Y%m%d")
-
-    file_name = f"{log_path}/{log_file_name}-{now}.log"
-    file_handler = logging.FileHandler(file_name)
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(LOG_FILE_FORMATTER)
-
-    debug_file_name = f"{log_path}/debug_{log_file_name}-{now}.log"
-    debug_file_handler = RotatingFileHandler(
-        debug_file_name, maxBytes=10 ** 6, backupCount=5
-    )
-    debug_file_handler.setLevel(logging.DEBUG)
-    debug_file_handler.setFormatter(LOG_FILE_FORMATTER)
-
-    error_file_name = f"{log_path}/error_{log_file_name}-{now}.log"
-    errors_file_handler = RotatingFileHandler(
-        error_file_name, maxBytes=10 ** 6, backupCount=5
-    )
-    errors_file_handler.setLevel(logging.WARNING)
-    errors_file_handler.setFormatter(LOG_FILE_FORMATTER)
-
-    if log_mode == "TEST":
-        # Console_handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.DEBUG)
-        console_handler.setFormatter(LOG_CONSOLE_FORMATTER)
-        logger.addHandler(console_handler)
-
-    logger.addHandler(file_handler)
-    logger.addHandler(debug_file_handler)
-    logger.addHandler(errors_file_handler)
-
-    # Add logger with name
-    loggers['song-scraper'] = logger
-
-    return logger
-
-
-def setup_logging_with_config_yaml(
-    default_path=LOG_YAML_CONFIG_FILE_DEFAULT,
-    default_level=logging.INFO,
-    env_key='LOG_CFG'
-):
-
-    path = default_path
-    value = os.getenv(env_key, None)
-
-    if value:
-        path = value
-
-    if os.path.exists(path):
-        with open(path, 'rt', encoding="utf-8") as file_handler:
-            config = yaml.safe_load(file_handler.read())
-        logging.config.dictConfig(config)
-    else:
-        logging.basicConfig(level=default_level)
+    def debug(self, message, notification=False):
+        self.log(message, "debug", notification)
