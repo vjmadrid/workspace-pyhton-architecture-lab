@@ -10,8 +10,13 @@ class DirectoryUtil:
 
     @staticmethod
     def create_directory(directory_path):
+        result = False
+
         if (not os.path.exists(directory_path)) and (os.path.isdir(directory_path)):
             os.makedirs(directory_path)
+            result = True
+
+        return result
 
     @staticmethod
     def change_directory(directory_path):

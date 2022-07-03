@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 import unittest
 import os
 from pathlib import Path
@@ -14,9 +11,7 @@ class TestFileUtil(unittest.TestCase):
 
     def setUp(self):
         self.test_current_path = Path(os.path.dirname(os.path.realpath(__file__)))
-        self.test_example_file_path = (
-            self.test_current_path / TestFileUtil.TEST_FILE_NAME
-        )
+        self.test_example_file_path = Path(self.test_current_path, TestFileUtil.TEST_FILE_NAME)
 
     def tearDown(self):
         pass
