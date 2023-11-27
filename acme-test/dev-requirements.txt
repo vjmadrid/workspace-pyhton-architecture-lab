@@ -15,13 +15,8 @@ pytest-cases
 pytest-asyncio
 
 autoflake
-
 requests-mock
-
 freezegun
-
 bandit
-
 pep8-naming
-
 sphinx

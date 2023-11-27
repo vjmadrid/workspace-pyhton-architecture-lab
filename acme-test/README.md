@@ -57,7 +57,7 @@ Third Party
     * toml
 
 * **pytest-flake8** [1.0.7] : Framework that is a plugin to check FLAKE8 requirements -> [Pypi](https://pypi.org/project/pytest-flake8/) [Documentation](https://flake8.pycqa.org/en/latest/index.html#quickstart)
-  
+
   * Includes :
     * **flake8** [3.9.2] : Framework that is a wrapper of differentes tools -> [Pypi](https://pypi.org/project/flake8/) [Documentation](https://flake8.pycqa.org/en/latest/index.html#quickstart)
     * **pycodestyle** [2.7.0] : Framework for checking Python style guide -> [Pypi](https://pypi.org/project/pycodestyle/) [Documentation](https://www.python.org/dev/peps/pep-0008/)
