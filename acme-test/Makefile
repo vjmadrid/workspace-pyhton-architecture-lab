@@ -38,8 +38,11 @@ VIRTUAL_LOCAL_ENV_NAME := venv
 
 EXECUTION_PATH := $(VIRTUAL_LOCAL_ENV_NAME)/$(EXECUTION_DIRECTORY_BY_ENVIRONMENT)
 
-PYTHON := $(EXECUTION_PATH)/python3
+PYTHON := $(EXECUTION_PATH)/python
 PIP := $(EXECUTION_PATH)/pip
+
+
+
 
 
 # App Configuration
@@ -61,7 +64,7 @@ BLACK_PARAMETER :=
 PYLINT_PARAMETER_DEBUG := -j 1 --output-format=colorized
 PYTLINT_PARAMETER := $(PYLINT_PARAMETER_DEBUG)
 
-AUTOFLAKE_PARAMETER_DEBUG := 
+AUTOFLAKE_PARAMETER_DEBUG :=
 AUTOFLAKE_PARAMETER := --remove-all-unused-imports --recursive --remove-unused-variables --in-place --exclude=__init__.py
 
 PYTEST_PARAMETER_CONSOLE := -s
@@ -76,11 +79,22 @@ PYTEST_PARAMETER := -ra -vv $(PYTEST_PARAMETER_DEBUG)
 
 # *** CLEAN ***
 
-clean-build: #Remove elements for build
+clean-build: ##Remove build artifacts
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
 	@find . -name '__pycache__' -type d | xargs rm -fr
 	@find . -name '.pytest_cache' -type d | xargs rm -fr
 	@find . -name '*.pytest_cache' -type d | xargs rm -fr
 	@find . -name '*.pyc' -type d | xargs rm -fr
+
+clean-pyc: ## Remove Python file artifacts
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test: #Remove test and coverage artifacts
 	@rm -fr .tox/
@@ -88,16 +102,10 @@ clean-test: #Remove test and coverage artifacts
 	@rm -fr htmlcov/
 	@rm -fr .pytest_cache
 
-clean-pyc: #Remove Python file artifacts
-	@find . -name '*.pyc' -exec rm -f {} +
-	@find . -name '*.pyo' -exec rm -f {} +
-	@find . -name '*~' -exec rm -f {} +
-	@find . -name '__pycache__' -exec rm -fr {} +
-
 clean-distribute: #Remove *.egg-info files and *.egg, build and dist directories
-	@rm -vrf build/ 
-	@rm -vrf dist/ 
-	@rm -vrf ./*.tgz 
+	@rm -vrf build/
+	@rm -vrf dist/
+	@rm -vrf ./*.tgz
 	@rm -vrf .eggs/
 	@find . -name '*.egg-info' -exec rm -fr {} +
 	@find . -name '*.egg' -exec rm -f {} +
@@ -229,15 +237,6 @@ lint-pylint-src: ##Lint Code with pylint on 'src'
 	$(EXECUTION_PATH)/pylint $(PYTLINT_PARAMETER) src
 	@echo -e "\n"
 
-lint-pylint-configs: ##Lint Code with pylint on 'configs'
-	@echo -e ""
-	@echo -e "$(COLOR_GREEN)pylint execution ...$(COLOR_OFF)"
-	@echo -e "$(COLOR_CYAN)Use configuration via a file -> pyproject.toml$(COLOR_OFF)"
-	$(EXECUTION_PATH)/pylint --version
-	@echo -e "$(COLOR_CYAN)* Apply on 'configs'$(COLOR_OFF)"
-	$(EXECUTION_PATH)/pylint $(PYTLINT_PARAMETER) configs
-	@echo -e "\n"
-
 lint-pylint-tests: ##Lint Code with pylint on 'tests'
 	@echo -e ""
 	@echo -e "$(COLOR_GREEN)pylint execution ...$(COLOR_OFF)"
@@ -287,13 +286,6 @@ test-coverage: ##Run tests with coverage
 	$(EXECUTION_PATH)/coverage report -m
 	$(EXECUTION_PATH)/coverage html -d ./reports/coverage_html
 
-#test-lab: clean ##TEST LAB (Run specifict test)
-#	@echo -e ""
-#	@echo -e "$(COLOR_GREEN)pytest execution ...$(COLOR_OFF)"
-#	@echo -e "$(COLOR_CYAN)* Apply on 'all'$(COLOR_OFF)"
-#	$(EXECUTION_PATH)/pytest $(PYTEST_PARAMETER) -v ./tests/unit/mongodb/test_simple_mongodb_connection_settings.py
-#	#$(EXECUTION_PATH)/pytest $(PYTEST_PARAMETER) -v ./tests/unit/common/util/folder/test_folder_util.py
-
 
 
 
@@ -325,7 +317,7 @@ security-safety-check: ## Check security code with safety (local)
 # *** INSTALL / UNINSTALL ***
 
 install: clean uninstall ##Install package local
-	$(PYTHON) setup.py develop 
+	$(PYTHON) setup.py develop
 
 uninstall: ##Uninstall package local
 	$(PYTHON) setup.py develop --uninstall
@@ -347,9 +339,8 @@ dist-sdist: ##Distribute package mode local (folder : sdist)
 
 dist-wheel: ##Distribute package mode local (folder : sdist)
 	$(PYTHON) setup.py bdist_wheel
-	
-dist: clean dist-sdist dist-wheel ##Distribute source and wheel package
 
+dist: clean dist-sdist dist-wheel ##Distribute source and wheel package
 
 
 
@@ -360,9 +351,6 @@ dist: clean dist-sdist dist-wheel ##Distribute source and wheel package
 run: ## Run Application
 	PYTHONPATH=src $(PYTHON) $(START_FILE)
 
-run-gunicorn: ##Run with GUnicorn 
-	$(EXECUTION_PATH)/gunicorn $(GUNICORN_WORKERS_PARAMETER) --bind 0.0.0.0:$(PORT) $(GUNICORN_LOG_LEVEL_PARAMETER) $(GUNICORN_START_FILE)
-
 
 
 
@@ -370,7 +358,7 @@ run-gunicorn: ##Run with GUnicorn
 # *** UPLOAD ****
 
 upload: ## Upload
-	python3 setup.py 
+	python3 setup.py
 	@echo "Upload completed"
 
 
@@ -378,7 +366,6 @@ upload: ## Upload
 
 
 # *** HELP ***
-
 
 help: ## Show help message
 	@IFS=$$'\n' ; \

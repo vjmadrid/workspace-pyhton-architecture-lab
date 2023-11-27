@@ -22,7 +22,6 @@ freezegun
 
 bandit
 
-
 pep8-naming
 
 sphinx
