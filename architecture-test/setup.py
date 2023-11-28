@@ -9,6 +9,8 @@ from setuptools import setup, find_packages
 from configs.default import BASE_DIR
 
 
+print("BASE_DIR: "+str(BASE_DIR))
+
 
 # Package meta-data default values
 NAME = "architecture-test"
@@ -27,13 +29,13 @@ REQUIREMENTS_FILE = "dev-requirements.txt"
 info_dict = {}
 
 # Load version -> the package's __version__.py module as a info dictionary
-if not VERSION:
-    # project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
-    # with open(os.path.join(path, project_slug, "__version__.py")) as f:
-    with open(os.path.join(BASE_DIR, '__version__.py')) as f:
-        exec(f.read(), info_dict)
-else:
-    info_dict["__version__"] = VERSION
+# project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
+# with open(os.path.join(path, project_slug, "__version__.py")) as f:
+with open(os.path.join(BASE_DIR, '__version__.py')) as f:
+    exec(f.read(), info_dict)
+
+print("VERSION: "+str(info_dict['__version__']))
+
 
 
 # Load README.md

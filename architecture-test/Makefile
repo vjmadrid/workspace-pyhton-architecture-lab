@@ -1,4 +1,4 @@
-#
+1#
 # Makefile for Project Management
 #
 
@@ -52,7 +52,7 @@ PIP := $(EXECUTION_PATH)/pip
 
 # App Configuration
 
-PROJECT_NAME := acme-test
+PROJECT_NAME := architecture-test
 ENVIRONMENT := local
 START_FILE := ./app.py
 PORT := N/A
@@ -90,7 +90,7 @@ PYTEST_PARAMETER := -ra -vv $(PYTEST_PARAMETER_DEBUG)
 
 # *** CLEAN ***
 
-clean-build: ##Remove build artifacts
+clean-build: #Remove build artifacts
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
@@ -101,7 +101,7 @@ clean-build: ##Remove build artifacts
 	@find . -name '*.pytest_cache' -type d | xargs rm -fr
 	@find . -name '*.pyc' -type d | xargs rm -fr
 
-clean-pyc: ## Remove Python file artifacts
+clean-pyc: #Remove Python file artifacts
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
