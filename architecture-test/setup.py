@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 import io
 import os
 # import sys
@@ -9,21 +6,19 @@ import os
 # from setuptools import setup, find_packages, Command
 from setuptools import setup, find_packages
 
+from configs.default import BASE_DIR
 
-# Project path
-path = os.path.abspath(os.path.dirname(__file__))
 
 
 # Package meta-data default values
-NAME = "acme-test"
+NAME = "architecture-test"
 DESCRIPTION = "Architecture library (dependency) related with testing to develop the different parts in \
     a homogeneus way"
-URL = "https://github.com/vjmadrid/workspace-python-architecture-lab/tree/main/acme-test"
+URL = "https://github.com/vjmadrid/workspace-python-architecture-lab/tree/main/" + str(NAME)
 EMAIL = "vjmadrid"
 AUTHOR = "Víctor Madrid"
-REQUIRES_PYTHON = ">=3.9.0"
+REQUIRES_PYTHON = ">=3.11.0"
 VERSION = "0.0.1"
-# VERSION = False
 PACKAGES_EXCLUDE = ["tests", "*.tests", "*.tests.*", "tests.*", "docs", "examples"]
 REQUIREMENTS_FILE = "dev-requirements.txt"
 
@@ -35,7 +30,7 @@ info_dict = {}
 if not VERSION:
     # project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
     # with open(os.path.join(path, project_slug, "__version__.py")) as f:
-    with open(os.path.join(path, NAME, '__version__.py')) as f:
+    with open(os.path.join(BASE_DIR, '__version__.py')) as f:
         exec(f.read(), info_dict)
 else:
     info_dict["__version__"] = VERSION
@@ -43,7 +38,7 @@ else:
 
 # Load README.md
 try:
-    with io.open(os.path.join(path, "README.md"), encoding="utf-8") as f:
+    with io.open(os.path.join(BASE_DIR, "README.md"), encoding="utf-8") as f:
         info_dict["long_description"] = "\n" + f.read()
 except FileNotFoundError:
     info_dict["long_description"] = DESCRIPTION
@@ -124,7 +119,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: Python",
     ]
     # $ setup.py publish support

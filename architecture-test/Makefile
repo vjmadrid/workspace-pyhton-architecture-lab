@@ -23,6 +23,11 @@ else
     OS_DETECTED := $(shell uname)
 endif
 
+
+
+
+
+
 # General Configuration
 
 ifeq ($(OS_DETECTED),Windows)
@@ -47,9 +52,15 @@ PIP := $(EXECUTION_PATH)/pip
 
 # App Configuration
 
+PROJECT_NAME := acme-test
 ENVIRONMENT := local
 START_FILE := ./app.py
 PORT := N/A
+
+# Pypi Server
+
+PYPI_SERVER_LOCAL_URL := http://localhost:8080
+PYPI_SERVER_LOCAL_EXTRA_INDEX_URL := $(PYPI_SERVER_LOCAL_URL)/simple/
 
 
 # Docker Configuration
@@ -306,9 +317,6 @@ security-bandit-check-all: ## Check security ALL code (with pyproject.toml confi
 	@echo -e "$(COLOR_CYAN)* Apply on 'ALL'$(COLOR_OFF)"
 	$(EXECUTION_PATH)/bandit -r .
 
-security-safety-check: ## Check security code with safety (local)
-	@echo -e "\n$(COLOR_GREEN)safety execution ...$(COLOR_OFF)"
-	$(EXECUTION_PATH)/safety check
 
 
 
@@ -322,6 +330,8 @@ install: clean uninstall ##Install package local
 uninstall: ##Uninstall package local
 	$(PYTHON) setup.py develop --uninstall
 
+install-pypi-server-local: clean
+	$(PIP) install --index-url $(PYPI_SERVER_LOCAL_EXTRA_INDEX_URL) $(PROJECT_NAME)
 
 
 
@@ -335,7 +345,7 @@ dist-install: ##Distribute package install by setup.py
 	$(PYTHON) setup.py install
 
 dist-sdist: ##Distribute package mode local (folder : sdist)
-	$(PYTHON) setup.py sdist
+	python setup.py sdist
 
 dist-wheel: ##Distribute package mode local (folder : sdist)
 	$(PYTHON) setup.py bdist_wheel
